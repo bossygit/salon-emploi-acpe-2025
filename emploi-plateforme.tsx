@@ -42,8 +42,8 @@ const RegistrationPlatform = () => {
   ];
 
   const regions = [
-    'Brazzaville', 'Pointe-Noire', 'Dolisie', 'Ouesso', 
-    'Owando', 'Impfondo', 'Sibiti', 'Madingou', 
+    'Brazzaville', 'Pointe-Noire', 'Dolisie', 'Ouesso',
+    'Owando', 'Impfondo', 'Sibiti', 'Madingou',
     'Gamboma', 'Kinkala', 'Djambala', 'Ewo'
   ];
 
@@ -76,7 +76,7 @@ const RegistrationPlatform = () => {
 
   const validateForm = () => {
     const newErrors: any = {};
-    
+
     if (!formData.nom) newErrors.nom = 'Le nom est obligatoire';
     if (!formData.prenom) newErrors.prenom = 'Le prénom est obligatoire';
     if (!formData.telephone) newErrors.telephone = 'Le téléphone est obligatoire';
@@ -108,10 +108,10 @@ const RegistrationPlatform = () => {
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center p-2">
-                  <Image 
-                    src="/logo.png" 
-                    alt="Logo ACPE" 
-                    width={32} 
+                  <Image
+                    src="/logo.png"
+                    alt="Logo ACPE"
+                    width={32}
                     height={32}
                     className="object-contain"
                   />
@@ -149,8 +149,8 @@ const RegistrationPlatform = () => {
                 </div>
                 <h3 className="font-bold text-lg mb-2">100+ Entreprises</h3>
                 <p className="text-sm opacity-90 mb-3">Rencontrez directement les recruteurs</p>
-                <a 
-                  href="#" 
+                <a
+                  href="#"
                   className="text-yellow-300 hover:text-yellow-200 text-sm font-medium inline-flex items-center space-x-1"
                   onClick={(e) => {
                     e.preventDefault();
@@ -161,7 +161,7 @@ const RegistrationPlatform = () => {
                   <ExternalLink className="w-4 h-4" />
                 </a>
               </div>
-              
+
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
                 <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Briefcase className="w-6 h-6 text-green-800" />
@@ -169,7 +169,7 @@ const RegistrationPlatform = () => {
                 <h3 className="font-bold text-lg mb-2">1000+ Opportunités</h3>
                 <p className="text-sm opacity-90">Emplois, stages, formations</p>
               </div>
-              
+
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
                 <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Calendar className="w-6 h-6 text-green-800" />
@@ -216,14 +216,14 @@ const RegistrationPlatform = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-3xl mx-auto">
             <div className="bg-white rounded-lg shadow-lg p-6 md:p-8">
-              
+
               {/* Section 1: Informations personnelles */}
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                   <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mr-3 text-sm">1</div>
                   Informations personnelles
                 </h2>
-                
+
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -238,7 +238,7 @@ const RegistrationPlatform = () => {
                     />
                     {errors.nom && <p className="text-red-500 text-xs mt-1">{errors.nom}</p>}
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Prénom <span className="text-red-500">*</span>
@@ -252,7 +252,7 @@ const RegistrationPlatform = () => {
                     />
                     {errors.prenom && <p className="text-red-500 text-xs mt-1">{errors.prenom}</p>}
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Date de naissance
@@ -264,7 +264,7 @@ const RegistrationPlatform = () => {
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800"
                     />
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Sexe
@@ -279,7 +279,7 @@ const RegistrationPlatform = () => {
                       <option value="femme">Femme</option>
                     </select>
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Téléphone <span className="text-red-500">*</span>
@@ -293,7 +293,7 @@ const RegistrationPlatform = () => {
                     />
                     {errors.telephone && <p className="text-red-500 text-xs mt-1">{errors.telephone}</p>}
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Email <span className="text-red-500">*</span>
@@ -307,7 +307,7 @@ const RegistrationPlatform = () => {
                     />
                     {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Région
@@ -323,7 +323,7 @@ const RegistrationPlatform = () => {
                       ))}
                     </select>
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Ville
@@ -345,7 +345,7 @@ const RegistrationPlatform = () => {
                   <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mr-3 text-sm">2</div>
                   Profil professionnel
                 </h2>
-                
+
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -377,7 +377,7 @@ const RegistrationPlatform = () => {
                       placeholder="Ex: Informatique, Commerce, etc."
                     />
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Situation actuelle
@@ -412,7 +412,7 @@ const RegistrationPlatform = () => {
                       <option value="5+">Plus de 5 ans</option>
                     </select>
                   </div>
-                  
+
                   <div className="md:col-span-2">
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Secteurs d'intérêt (plusieurs choix possibles)
@@ -431,7 +431,7 @@ const RegistrationPlatform = () => {
                       ))}
                     </div>
                   </div>
-                  
+
                   <div className="md:col-span-2">
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       CV (optionnel)
@@ -475,7 +475,7 @@ const RegistrationPlatform = () => {
                   <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3 text-sm">2.5</div>
                   Entrepreneuriat
                 </h2>
-                
+
                 <div className="bg-blue-50 border-l-4 border-primary p-4 mb-6">
                   <div className="flex items-start">
                     <Lightbulb className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
@@ -485,7 +485,7 @@ const RegistrationPlatform = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Décrivez votre idée de projet en quelques mots
@@ -509,18 +509,18 @@ const RegistrationPlatform = () => {
                   <div className="w-8 h-8 bg-yellow-500 text-black rounded-full flex items-center justify-center mr-3 text-sm">3</div>
                   Inscription ACPE
                 </h2>
-                
+
                 <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6">
                   <div className="flex items-start">
                     <AlertCircle className="w-5 h-5 text-yellow-600 mr-2 flex-shrink-0 mt-0.5" />
                     <div className="text-sm text-yellow-800">
                       <p className="font-semibold mb-1">Information importante</p>
-                      <p>L'ACPE (Agence Congolaise Pour l'Emploi) est le service public de l'emploi au Congo. 
-                      Être inscrit facilite votre accès aux offres d'emploi et services d'accompagnement.</p>
+                      <p>L'ACPE (Agence Congolaise Pour l'Emploi) est le service public de l'emploi au Congo.
+                        Être inscrit facilite votre accès aux offres d'emploi et services d'accompagnement.</p>
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-3">
@@ -541,7 +541,7 @@ const RegistrationPlatform = () => {
                           <p className="text-xs text-gray-600">J'ai déjà un compte sur le site de l'ACPE</p>
                         </div>
                       </label>
-                      
+
                       <label className="flex items-center p-4 bg-white border-2 border-gray-200 rounded-lg cursor-pointer hover:border-green-500 transition-colors">
                         <input
                           type="radio"
@@ -556,7 +556,7 @@ const RegistrationPlatform = () => {
                           <p className="text-xs text-gray-600">Je n'ai pas encore de compte ACPE</p>
                         </div>
                       </label>
-                      
+
                       <label className="flex items-center p-4 bg-white border-2 border-gray-200 rounded-lg cursor-pointer hover:border-green-500 transition-colors">
                         <input
                           type="radio"
@@ -626,8 +626,8 @@ const RegistrationPlatform = () => {
                       {formData.souhaitInscriptionACPE === 'oui' && (
                         <div className="mt-3 bg-white p-3 rounded">
                           <p className="text-xs text-blue-700 mb-2">
-                          ✓ Un conseiller ACPE vous contactera pendant le salon pour finaliser votre inscription
-                        </p>
+                            ✓ Un conseiller ACPE vous contactera pendant le salon pour finaliser votre inscription
+                          </p>
                           <a
                             href="https://acpe.cg/register"
                             target="_blank"
@@ -650,7 +650,7 @@ const RegistrationPlatform = () => {
                   <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3 text-sm">4</div>
                   Ateliers disponibles
                 </h2>
-                
+
                 <div className="bg-primary/10 border-l-4 border-primary p-4 mb-6">
                   <div className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
@@ -659,27 +659,27 @@ const RegistrationPlatform = () => {
                       <p>Sélectionnez les ateliers qui vous intéressent pour recevoir des informations personnalisées.</p>
                     </div>
                   </div>
-                  </div>
+                </div>
 
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Ateliers d'intérêt (plusieurs choix possibles)
-                    </label>
-                    <div className="grid grid-cols-1 gap-2">
-                      {ateliers.map(atelier => (
-                        <label key={atelier} className="flex items-center p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-                          <input
-                            type="checkbox"
-                            checked={formData.ateliersInterets.includes(atelier)}
-                            onChange={() => handleMultiSelect('ateliersInterets', atelier)}
-                            className="mr-2"
-                          />
-                          <span className="text-sm text-gray-700">{atelier}</span>
-                        </label>
-                      ))}
-                    </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Ateliers d'intérêt (plusieurs choix possibles)
+                  </label>
+                  <div className="grid grid-cols-1 gap-2">
+                    {ateliers.map(atelier => (
+                      <label key={atelier} className="flex items-center p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <input
+                          type="checkbox"
+                          checked={formData.ateliersInterets.includes(atelier)}
+                          onChange={() => handleMultiSelect('ateliersInterets', atelier)}
+                          className="mr-2"
+                        />
+                        <span className="text-sm text-gray-700">{atelier}</span>
+                      </label>
+                    ))}
                   </div>
                 </div>
+              </div>
 
               {/* Boutons de validation */}
               <div className="flex justify-between items-center pt-8 border-t">
@@ -712,10 +712,10 @@ const RegistrationPlatform = () => {
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center space-x-3">
               <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center p-2">
-                <Image 
-                  src="/logo.png" 
-                  alt="Logo ACPE" 
-                  width={32} 
+                <Image
+                  src="/logo.png"
+                  alt="Logo ACPE"
+                  width={32}
                   height={32}
                   className="object-contain"
                 />
@@ -876,7 +876,7 @@ const RegistrationPlatform = () => {
                     <Mail className="w-5 h-5" />
                     <span>Copier les infos</span>
                   </button>
-                  
+
                   <button
                     onClick={() => {
                       setStep('home');
