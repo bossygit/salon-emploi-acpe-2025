@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Users, Calendar, MapPin, Briefcase, CheckCircle, AlertCircle, Download, QrCode, Mail, Phone } from 'lucide-react';
+import { Users, Calendar, MapPin, Briefcase, CheckCircle, AlertCircle, Download, QrCode, Mail, Phone, ExternalLink, Upload, Lightbulb, MessageCircle } from 'lucide-react';
+import Image from 'next/image';
 
 const RegistrationPlatform = () => {
   const [step, setStep] = useState('home');
@@ -17,13 +18,12 @@ const RegistrationPlatform = () => {
     situationActuelle: '',
     experienceAnnees: '',
     secteursInterets: [],
+    cvFile: null,
+    ideeProjet: '',
     inscritACPE: '',
     numeroACPE: '',
     souhaitInscriptionACPE: '',
-    jourParticipation: [],
-    horairePreference: '',
     ateliersInterets: [],
-    objectifPrincipal: '',
     accepteConditions: false,
     accepteTraitementDonnees: false,
     accepteCommunications: false
@@ -42,8 +42,8 @@ const RegistrationPlatform = () => {
   ];
 
   const regions = [
-    'Brazzaville', 'Pointe-Noire', 'Dolisie', 'Ouesso',
-    'Owando', 'Impfondo', 'Sibiti', 'Madingou',
+    'Brazzaville', 'Pointe-Noire', 'Dolisie', 'Ouesso', 
+    'Owando', 'Impfondo', 'Sibiti', 'Madingou', 
     'Gamboma', 'Kinkala', 'Djambala', 'Ewo'
   ];
 
@@ -76,7 +76,7 @@ const RegistrationPlatform = () => {
 
   const validateForm = () => {
     const newErrors: any = {};
-
+    
     if (!formData.nom) newErrors.nom = 'Le nom est obligatoire';
     if (!formData.prenom) newErrors.prenom = 'Le prénom est obligatoire';
     if (!formData.telephone) newErrors.telephone = 'Le téléphone est obligatoire';
@@ -102,13 +102,19 @@ const RegistrationPlatform = () => {
 
   if (step === 'home') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-600 via-green-700 to-red-600 text-white">
+      <div className="min-h-screen bg-gradient-to-br from-primary via-primary to-secondary text-white">
         <header className="bg-white/10 backdrop-blur-sm border-b border-white/20">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-                  <Users className="w-7 h-7 text-green-600" />
+                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center p-2">
+                  <Image 
+                    src="/logo.png" 
+                    alt="Logo ACPE" 
+                    width={32} 
+                    height={32}
+                    className="object-contain"
+                  />
                 </div>
                 <div>
                   <h1 className="text-xl font-bold">Inscription Salon de l&apos;Emploi</h1>
@@ -142,9 +148,20 @@ const RegistrationPlatform = () => {
                   <Users className="w-6 h-6 text-green-800" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">100+ Entreprises</h3>
-                <p className="text-sm opacity-90">Rencontrez directement les recruteurs</p>
+                <p className="text-sm opacity-90 mb-3">Rencontrez directement les recruteurs</p>
+                <a 
+                  href="#" 
+                  className="text-yellow-300 hover:text-yellow-200 text-sm font-medium inline-flex items-center space-x-1"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    alert('Liste des entreprises bientôt disponible !');
+                  }}
+                >
+                  <span>Voir la liste des entreprises</span>
+                  <ExternalLink className="w-4 h-4" />
+                </a>
               </div>
-
+              
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
                 <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Briefcase className="w-6 h-6 text-green-800" />
@@ -152,7 +169,7 @@ const RegistrationPlatform = () => {
                 <h3 className="font-bold text-lg mb-2">1000+ Opportunités</h3>
                 <p className="text-sm opacity-90">Emplois, stages, formations</p>
               </div>
-
+              
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
                 <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Calendar className="w-6 h-6 text-green-800" />
@@ -199,14 +216,14 @@ const RegistrationPlatform = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-3xl mx-auto">
             <div className="bg-white rounded-lg shadow-lg p-6 md:p-8">
-
+              
               {/* Section 1: Informations personnelles */}
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                   <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mr-3 text-sm">1</div>
                   Informations personnelles
                 </h2>
-
+                
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -221,7 +238,7 @@ const RegistrationPlatform = () => {
                     />
                     {errors.nom && <p className="text-red-500 text-xs mt-1">{errors.nom}</p>}
                   </div>
-
+                  
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Prénom <span className="text-red-500">*</span>
@@ -235,7 +252,7 @@ const RegistrationPlatform = () => {
                     />
                     {errors.prenom && <p className="text-red-500 text-xs mt-1">{errors.prenom}</p>}
                   </div>
-
+                  
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Date de naissance
@@ -247,7 +264,7 @@ const RegistrationPlatform = () => {
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800"
                     />
                   </div>
-
+                  
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Sexe
@@ -262,7 +279,7 @@ const RegistrationPlatform = () => {
                       <option value="femme">Femme</option>
                     </select>
                   </div>
-
+                  
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Téléphone <span className="text-red-500">*</span>
@@ -276,7 +293,7 @@ const RegistrationPlatform = () => {
                     />
                     {errors.telephone && <p className="text-red-500 text-xs mt-1">{errors.telephone}</p>}
                   </div>
-
+                  
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Email <span className="text-red-500">*</span>
@@ -290,7 +307,7 @@ const RegistrationPlatform = () => {
                     />
                     {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                   </div>
-
+                  
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Région
@@ -306,7 +323,7 @@ const RegistrationPlatform = () => {
                       ))}
                     </select>
                   </div>
-
+                  
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Ville
@@ -328,7 +345,7 @@ const RegistrationPlatform = () => {
                   <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mr-3 text-sm">2</div>
                   Profil professionnel
                 </h2>
-
+                
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -360,7 +377,7 @@ const RegistrationPlatform = () => {
                       placeholder="Ex: Informatique, Commerce, etc."
                     />
                   </div>
-
+                  
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Situation actuelle
@@ -395,7 +412,7 @@ const RegistrationPlatform = () => {
                       <option value="5+">Plus de 5 ans</option>
                     </select>
                   </div>
-
+                  
                   <div className="md:col-span-2">
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Secteurs d'intérêt (plusieurs choix possibles)
@@ -414,6 +431,75 @@ const RegistrationPlatform = () => {
                       ))}
                     </div>
                   </div>
+                  
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      CV (optionnel)
+                    </label>
+                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-colors">
+                      <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                      <p className="text-sm text-gray-600 mb-2">
+                        Glissez-déposez votre CV ici ou cliquez pour sélectionner
+                      </p>
+                      <input
+                        type="file"
+                        accept=".pdf,.doc,.docx"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setFormData((prev: any) => ({ ...prev, cvFile: file }));
+                          }
+                        }}
+                        className="hidden"
+                        id="cv-upload"
+                      />
+                      <label
+                        htmlFor="cv-upload"
+                        className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium cursor-pointer hover:bg-primary/90 transition-colors"
+                      >
+                        Choisir un fichier
+                      </label>
+                      {formData.cvFile && (
+                        <p className="text-sm text-success mt-2">
+                          ✓ {formData.cvFile.name}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Section 2.5: Entrepreneuriat */}
+              <div className="mb-8 pt-8 border-t">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                  <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3 text-sm">2.5</div>
+                  Entrepreneuriat
+                </h2>
+                
+                <div className="bg-blue-50 border-l-4 border-primary p-4 mb-6">
+                  <div className="flex items-start">
+                    <Lightbulb className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
+                    <div className="text-sm text-blue-800">
+                      <p className="font-semibold mb-1">Vous avez une idée de projet ?</p>
+                      <p>Partagez votre idée d'entrepreneuriat pour bénéficier d'un accompagnement personnalisé pendant le salon.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Décrivez votre idée de projet en quelques mots
+                  </label>
+                  <textarea
+                    value={formData.ideeProjet}
+                    onChange={(e) => handleInputChange('ideeProjet', e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-gray-800"
+                    placeholder="Ex: Créer une application mobile pour la livraison de produits locaux..."
+                    rows={4}
+                  />
+                  <p className="text-xs text-gray-600 mt-2">
+                    Cette information nous aidera à vous orienter vers les bons ateliers et conseillers.
+                  </p>
                 </div>
               </div>
 
@@ -423,18 +509,18 @@ const RegistrationPlatform = () => {
                   <div className="w-8 h-8 bg-yellow-500 text-black rounded-full flex items-center justify-center mr-3 text-sm">3</div>
                   Inscription ACPE
                 </h2>
-
+                
                 <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6">
                   <div className="flex items-start">
                     <AlertCircle className="w-5 h-5 text-yellow-600 mr-2 flex-shrink-0 mt-0.5" />
                     <div className="text-sm text-yellow-800">
                       <p className="font-semibold mb-1">Information importante</p>
-                      <p>L'ACPE (Agence Congolaise Pour l'Emploi) est le service public de l'emploi au Congo.
-                        Être inscrit facilite votre accès aux offres d'emploi et services d'accompagnement.</p>
+                      <p>L'ACPE (Agence Congolaise Pour l'Emploi) est le service public de l'emploi au Congo. 
+                      Être inscrit facilite votre accès aux offres d'emploi et services d'accompagnement.</p>
                     </div>
                   </div>
                 </div>
-
+                
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-3">
@@ -455,7 +541,7 @@ const RegistrationPlatform = () => {
                           <p className="text-xs text-gray-600">J'ai déjà un compte sur le site de l'ACPE</p>
                         </div>
                       </label>
-
+                      
                       <label className="flex items-center p-4 bg-white border-2 border-gray-200 rounded-lg cursor-pointer hover:border-green-500 transition-colors">
                         <input
                           type="radio"
@@ -470,7 +556,7 @@ const RegistrationPlatform = () => {
                           <p className="text-xs text-gray-600">Je n'ai pas encore de compte ACPE</p>
                         </div>
                       </label>
-
+                      
                       <label className="flex items-center p-4 bg-white border-2 border-gray-200 rounded-lg cursor-pointer hover:border-green-500 transition-colors">
                         <input
                           type="radio"
@@ -538,73 +624,41 @@ const RegistrationPlatform = () => {
                         </label>
                       </div>
                       {formData.souhaitInscriptionACPE === 'oui' && (
-                        <p className="text-xs text-blue-700 mt-3 bg-white p-3 rounded">
+                        <div className="mt-3 bg-white p-3 rounded">
+                          <p className="text-xs text-blue-700 mb-2">
                           ✓ Un conseiller ACPE vous contactera pendant le salon pour finaliser votre inscription
                         </p>
+                          <a
+                            href="https://acpe.cg/register"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center space-x-1 text-primary hover:text-primary/80 text-sm font-medium"
+                          >
+                            <span>Ou inscrivez-vous directement sur le site ACPE</span>
+                            <ExternalLink className="w-4 h-4" />
+                          </a>
+                        </div>
                       )}
                     </div>
                   )}
                 </div>
               </div>
 
-              {/* Section 4: Préférences pour le salon */}
+              {/* Section 4: Ateliers */}
               <div className="mb-8 pt-8 border-t">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                  <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mr-3 text-sm">4</div>
-                  Préférences pour le salon
+                  <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3 text-sm">4</div>
+                  Ateliers disponibles
                 </h2>
-
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Jour(s) de participation (plusieurs choix possibles)
-                    </label>
-                    <div className="space-y-2">
-                      {['28 octobre', '29 octobre', '30 octobre'].map(jour => (
-                        <label key={jour} className="flex items-center p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-                          <input
-                            type="checkbox"
-                            checked={formData.jourParticipation.includes(jour)}
-                            onChange={() => handleMultiSelect('jourParticipation', jour)}
-                            className="mr-2"
-                          />
-                          <span className="text-sm text-gray-700">{jour}</span>
-                        </label>
-                      ))}
+                
+                <div className="bg-primary/10 border-l-4 border-primary p-4 mb-6">
+                  <div className="flex items-start">
+                    <CheckCircle className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
+                    <div className="text-sm text-primary">
+                      <p className="font-semibold mb-1">Programme du Salon</p>
+                      <p>Sélectionnez les ateliers qui vous intéressent pour recevoir des informations personnalisées.</p>
                     </div>
                   </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Horaire préféré
-                    </label>
-                    <select
-                      value={formData.horairePreference}
-                      onChange={(e) => handleInputChange('horairePreference', e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800"
-                    >
-                      <option value="">Sélectionner</option>
-                      <option value="matin">Matin (8h - 12h)</option>
-                      <option value="apres_midi">Après-midi (14h - 18h)</option>
-                      <option value="toute_journee">Toute la journée</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Objectif principal
-                    </label>
-                    <select
-                      value={formData.objectifPrincipal}
-                      onChange={(e) => handleInputChange('objectifPrincipal', e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800"
-                    >
-                      <option value="">Sélectionner</option>
-                      <option value="emploi_salarie">Trouver un emploi salarié</option>
-                      <option value="auto_emploi">Développer un projet d'auto-emploi</option>
-                      <option value="formation">Suivre une formation</option>
-                      <option value="tous">Les trois</option>
-                    </select>
                   </div>
 
                   <div>
@@ -626,7 +680,6 @@ const RegistrationPlatform = () => {
                     </div>
                   </div>
                 </div>
-              </div>
 
               {/* Boutons de validation */}
               <div className="flex justify-between items-center pt-8 border-t">
@@ -654,12 +707,18 @@ const RegistrationPlatform = () => {
 
   if (step === 'confirmation') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-600 via-green-700 to-green-800 text-white">
+      <div className="min-h-screen bg-gradient-to-br from-primary via-primary to-secondary text-white">
         <header className="bg-white/10 backdrop-blur-sm border-b border-white/20">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-                <CheckCircle className="w-7 h-7 text-green-600" />
+              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center p-2">
+                <Image 
+                  src="/logo.png" 
+                  alt="Logo ACPE" 
+                  width={32} 
+                  height={32}
+                  className="object-contain"
+                />
               </div>
               <div>
                 <h1 className="text-xl font-bold">Inscription confirmée</h1>
@@ -683,11 +742,11 @@ const RegistrationPlatform = () => {
               </p>
             </div>
 
-            {/* Badge d'accès */}
+            {/* Récapitulatif d'inscription */}
             <div className="bg-white text-gray-800 rounded-xl shadow-2xl overflow-hidden">
-              <div className="bg-gradient-to-r from-green-600 to-green-700 text-white p-6">
-                <h3 className="text-2xl font-bold mb-2">Badge d'accès</h3>
-                <p className="text-sm opacity-90">Présentez ce badge à l'entrée du salon</p>
+              <div className="bg-gradient-to-r from-primary to-secondary text-white p-6">
+                <h3 className="text-2xl font-bold mb-2">Inscription confirmée</h3>
+                <p className="text-sm opacity-90">Récapitulatif de vos informations</p>
               </div>
 
               <div className="p-8">
@@ -699,7 +758,7 @@ const RegistrationPlatform = () => {
                       <div className="space-y-3">
                         <div className="flex justify-between py-2 border-b">
                           <span className="text-sm text-gray-600">Numéro d'inscription :</span>
-                          <span className="font-bold text-green-600">{registrationNumber}</span>
+                          <span className="font-bold text-primary">{registrationNumber}</span>
                         </div>
                         <div className="flex justify-between py-2 border-b">
                           <span className="text-sm text-gray-600">Nom complet :</span>
@@ -722,69 +781,74 @@ const RegistrationPlatform = () => {
                       </div>
                     </div>
 
-                    {formData.jourParticipation.length > 0 && (
+                    {formData.ateliersInterets.length > 0 && (
                       <div className="mb-6">
-                        <h4 className="text-sm font-semibold text-gray-600 mb-2">JOURS DE PARTICIPATION</h4>
+                        <h4 className="text-sm font-semibold text-gray-600 mb-2">ATELIERS SÉLECTIONNÉS</h4>
                         <div className="flex flex-wrap gap-2">
-                          {formData.jourParticipation.map((jour: string) => (
-                            <span key={jour} className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
-                              {jour}
+                          {formData.ateliersInterets.map((atelier: string) => (
+                            <span key={atelier} className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
+                              {atelier}
                             </span>
                           ))}
                         </div>
                       </div>
                     )}
 
-                    {formData.objectifPrincipal && (
+                    {formData.ideeProjet && (
                       <div className="mb-6">
-                        <h4 className="text-sm font-semibold text-gray-600 mb-2">OBJECTIF PRINCIPAL</h4>
-                        <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-lg text-sm font-medium">
-                          {formData.objectifPrincipal === 'emploi_salarie' && 'Emploi salarié'}
-                          {formData.objectifPrincipal === 'auto_emploi' && 'Auto-emploi'}
-                          {formData.objectifPrincipal === 'formation' && 'Formation'}
-                          {formData.objectifPrincipal === 'tous' && 'Les trois'}
-                        </span>
+                        <h4 className="text-sm font-semibold text-gray-600 mb-2">IDÉE DE PROJET</h4>
+                        <p className="text-sm text-gray-700 bg-gray-50 p-3 rounded-lg">
+                          {formData.ideeProjet}
+                        </p>
                       </div>
                     )}
                   </div>
 
-                  {/* QR Code */}
-                  <div className="flex flex-col items-center justify-center bg-gray-50 rounded-lg p-6">
-                    <div className="bg-white p-4 rounded-lg shadow-lg mb-4">
-                      <QrCode className="w-48 h-48 text-gray-800" />
-                    </div>
-                    <p className="text-xs text-gray-600 text-center">
-                      Scannez ce code QR à l'entrée du salon
-                    </p>
-                    <p className="text-xl font-mono font-bold text-green-600 mt-2">
-                      {registrationNumber}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Notifications */}
-                <div className="mt-8 pt-6 border-t">
-                  <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
-                    <div className="flex items-start">
-                      <Mail className="w-5 h-5 text-blue-600 mr-2 flex-shrink-0 mt-0.5" />
-                      <div className="text-sm text-blue-800">
-                        <p className="font-semibold mb-1">Confirmation envoyée</p>
-                        <p>Un email de confirmation avec votre badge numérique a été envoyé à <strong>{formData.email}</strong></p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {formData.accepteCommunications && (
-                    <div className="bg-green-50 border-l-4 border-green-500 p-4 mb-6">
+                  {/* Informations importantes */}
+                  <div className="space-y-6">
+                    <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4">
                       <div className="flex items-start">
-                        <Phone className="w-5 h-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
-                        <div className="text-sm text-green-800">
-                          <p className="font-semibold mb-1">SMS de confirmation</p>
-                          <p>Un SMS de confirmation sera envoyé au <strong>{formData.telephone}</strong></p>
+                        <AlertCircle className="w-5 h-5 text-yellow-600 mr-2 flex-shrink-0 mt-0.5" />
+                        <div className="text-sm text-yellow-800">
+                          <p className="font-semibold mb-1">Retrait du badge</p>
+                          <p>Votre badge d'accès sera disponible sur le lieu du salon. Présentez votre numéro d'inscription :</p>
+                          <p className="font-mono font-bold text-lg mt-2">{registrationNumber}</p>
                         </div>
                       </div>
                     </div>
-                  )}
+
+                    <div className="bg-green-50 border-l-4 border-success p-4">
+                      <div className="flex items-start">
+                        <CheckCircle className="w-5 h-5 text-success mr-2 flex-shrink-0 mt-0.5" />
+                        <div className="text-sm text-green-800">
+                          <p className="font-semibold mb-1">Confirmation envoyée</p>
+                          <p>Un email de confirmation a été envoyé à <strong>{formData.email}</strong></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Réseautage WhatsApp */}
+                <div className="mt-8 pt-6 border-t">
+                  <div className="bg-green-50 border-l-4 border-success p-4 mb-6">
+                    <div className="flex items-start">
+                      <MessageCircle className="w-5 h-5 text-success mr-2 flex-shrink-0 mt-0.5" />
+                      <div className="text-sm text-green-800">
+                        <p className="font-semibold mb-1">Rejoignez notre communauté</p>
+                        <p className="mb-3">Restez connecté avec les autres participants et recevez les dernières informations sur le salon.</p>
+                        <a
+                          href="https://wa.me/242XXXXXXXXX?text=Salut!%20Je%20viens%20de%20m'inscrire%20au%20Salon%20de%20l'Emploi%202025"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center space-x-2 bg-success text-white px-4 py-2 rounded-lg font-medium hover:bg-success/90 transition-colors"
+                        >
+                          <MessageCircle className="w-4 h-4" />
+                          <span>Rejoindre le groupe WhatsApp</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
 
                   {formData.inscritACPE === 'non' && formData.souhaitInscriptionACPE === 'oui' && (
                     <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6">
@@ -800,15 +864,7 @@ const RegistrationPlatform = () => {
                 </div>
 
                 {/* Actions */}
-                <div className="grid md:grid-cols-3 gap-4 mt-6">
-                  <button
-                    onClick={() => window.print()}
-                    className="flex items-center justify-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-3 rounded-lg font-medium transition-all"
-                  >
-                    <Download className="w-5 h-5" />
-                    <span>Imprimer le badge</span>
-                  </button>
-
+                <div className="grid md:grid-cols-2 gap-4 mt-6">
                   <button
                     onClick={() => {
                       const text = `Inscription Salon de l'Emploi 2025\nNuméro: ${registrationNumber}\nNom: ${formData.nom} ${formData.prenom}\nEmail: ${formData.email}`;
@@ -820,21 +876,20 @@ const RegistrationPlatform = () => {
                     <Mail className="w-5 h-5" />
                     <span>Copier les infos</span>
                   </button>
-
+                  
                   <button
                     onClick={() => {
                       setStep('home');
                       setFormData({
                         nom: '', prenom: '', dateNaissance: '', sexe: '', telephone: '', email: '',
                         ville: '', region: '', niveauEtudes: '', domaineEtudes: '', situationActuelle: '',
-                        experienceAnnees: '', secteursInterets: [], inscritACPE: '', numeroACPE: '',
-                        souhaitInscriptionACPE: '', jourParticipation: [], horairePreference: '',
-                        ateliersInterets: [], objectifPrincipal: '', accepteConditions: false,
-                        accepteTraitementDonnees: false, accepteCommunications: false
+                        experienceAnnees: '', secteursInterets: [], cvFile: null, ideeProjet: '',
+                        inscritACPE: '', numeroACPE: '', souhaitInscriptionACPE: '', ateliersInterets: [],
+                        accepteConditions: false, accepteTraitementDonnees: false, accepteCommunications: false
                       });
                       setRegistrationNumber('');
                     }}
-                    className="flex items-center justify-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-medium transition-all"
+                    className="flex items-center justify-center space-x-2 bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-lg font-medium transition-all"
                   >
                     <Users className="w-5 h-5" />
                     <span>Nouvelle inscription</span>
