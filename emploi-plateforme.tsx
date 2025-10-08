@@ -3,7 +3,7 @@ import { Users, Calendar, MapPin, Briefcase, CheckCircle, AlertCircle, Download,
 
 const RegistrationPlatform = () => {
   const [step, setStep] = useState('home');
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<any>({
     nom: '',
     prenom: '',
     dateNaissance: '',
@@ -30,7 +30,7 @@ const RegistrationPlatform = () => {
   });
 
   const [registrationNumber, setRegistrationNumber] = useState('');
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<any>({});
 
   const secteurs = [
     'Agriculture/Agroalimentaire',
@@ -57,25 +57,25 @@ const RegistrationPlatform = () => {
     'Techniques de recherche d\'emploi'
   ];
 
-  const handleInputChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-    if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: null }));
+  const handleInputChange = (field: string, value: any) => {
+    setFormData((prev: any) => ({ ...prev, [field]: value }));
+    if (errors[field as keyof typeof errors]) {
+      setErrors((prev: any) => ({ ...prev, [field]: null }));
     }
   };
 
-  const handleMultiSelect = (field, value) => {
-    setFormData(prev => {
-      const current = prev[field] || [];
+  const handleMultiSelect = (field: string, value: string) => {
+    setFormData((prev: any) => {
+      const current = prev[field] as string[] || [];
       if (current.includes(value)) {
-        return { ...prev, [field]: current.filter(v => v !== value) };
+        return { ...prev, [field]: current.filter((v: string) => v !== value) };
       }
       return { ...prev, [field]: [...current, value] };
     });
   };
 
   const validateForm = () => {
-    const newErrors = {};
+    const newErrors: any = {};
 
     if (!formData.nom) newErrors.nom = 'Le nom est obligatoire';
     if (!formData.prenom) newErrors.prenom = 'Le prénom est obligatoire';
@@ -111,7 +111,7 @@ const RegistrationPlatform = () => {
                   <Users className="w-7 h-7 text-green-600" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold">Inscription Salon de l'Emploi</h1>
+                  <h1 className="text-xl font-bold">Inscription Salon de l&apos;Emploi</h1>
                   <p className="text-sm opacity-90">République du Congo</p>
                 </div>
               </div>
@@ -129,11 +129,11 @@ const RegistrationPlatform = () => {
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Inscrivez-vous au Salon National de l'Emploi Jeune 2025
+              Inscrivez-vous au Salon National de l&apos;Emploi Jeune 2025
             </h2>
             <p className="text-xl mb-8 opacity-90">
               Ne manquez pas cette opportunité unique de rencontrer plus de 100 entreprises
-              et d'accéder à 1000+ opportunités d'emploi et d'auto-emploi
+              et d&apos;accéder à 1000+ opportunités d&apos;emploi et d&apos;auto-emploi
             </p>
 
             <div className="grid md:grid-cols-3 gap-6 mb-12">
@@ -726,7 +726,7 @@ const RegistrationPlatform = () => {
                       <div className="mb-6">
                         <h4 className="text-sm font-semibold text-gray-600 mb-2">JOURS DE PARTICIPATION</h4>
                         <div className="flex flex-wrap gap-2">
-                          {formData.jourParticipation.map(jour => (
+                          {formData.jourParticipation.map((jour: string) => (
                             <span key={jour} className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
                               {jour}
                             </span>
