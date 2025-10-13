@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanner QR Code - Admin Salon Emploi 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1B80BF 0%, #238C33 50%, #F2133C 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1B80BF 0%, #238C33 50%, #F2133C 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .scanner-section {
+            margin-bottom: 30px;
+        }
+
+        .scanner-title {
+            font-size: 20px;
+            color: #1B80BF;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scanner-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .scanner-option {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .scanner-option:hover {
+            border-color: #1B80BF;
+            background-color: #f8f9fa;
+        }
+
+        .scanner-option.active {
+            border-color: #1B80BF;
+            background-color: #e3f2fd;
+        }
+
+        .scanner-option h3 {
+            color: #1B80BF;
+            margin-bottom: 10px;
+        }
+
+        .scanner-option p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .input-section {
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .input-group input,
+        .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus {
+            outline: none;
+            border-color: #1B80BF;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #1B80BF 0%, #238C33 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(27, 128, 191, 0.3);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .result-section {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .result-section.success {
+            background-color: #d4edda;
+            border: 2px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .result-section.error {
+            background-color: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .result-section.warning {
+            background-color: #fff3cd;
+            border: 2px solid #ffeaa7;
+            color: #856404;
+        }
+
+        .result-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-data {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .result-data h4 {
+            color: #1B80BF;
+            margin-bottom: 10px;
+        }
+
+        .result-data p {
+            margin-bottom: 5px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #1B80BF;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1B80BF;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .scanner-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Scanner QR Code</h1>
+            <p>Interface Admin - Salon National de l'Emploi Jeune 2025</p>
+        </div>
+
+        <div class="content">
+            <div class="scanner-section">
+                <h2 class="scanner-title">
+                    📱 Méthode de vérification
+                </h2>
+                
+                <div class="scanner-options">
+                    <div class="scanner-option active" data-method="manual">
+                        <h3>📝 Saisie manuelle</h3>
+                        <p>Coller les données du QR code</p>
+                    </div>
+                    <div class="scanner-option" data-method="camera">
+                        <h3>📷 Caméra</h3>
+                        <p>Scanner avec la caméra (à venir)</p>
+                    </div>
+                </div>
+
+                <div class="input-section">
+                    <div class="input-group">
+                        <label for="qrData">Données du QR Code (JSON) :</label>
+                        <textarea 
+                            id="qrData" 
+                            rows="6" 
+                            placeholder='{"numeroInscription":"SALON2025-000001","nom":"Dupont","prenom":"Jean","email":"jean@example.com","telephone":"+242123456789","statut":"en-attente"}'
+                        ></textarea>
+                    </div>
+                    
+                    <button class="btn" onclick="verifyQRCode()">
+                        🔍 Vérifier l'inscription
+                    </button>
+                </div>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Vérification en cours...</p>
+            </div>
+
+            <div class="result-section" id="resultSection">
+                <div class="result-title" id="resultTitle"></div>
+                <div class="result-data" id="resultData"></div>
+            </div>
+
+            <div class="stats" id="statsSection" style="display: none;">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalRegistrations">0</div>
+                    <div class="stat-label">Total inscrits</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="confirmedRegistrations">0</div>
+                    <div class="stat-label">Confirmés</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="entriesMarked">0</div>
+                    <div class="stat-label">Entrées marquées</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://127.0.0.1:5000/api';
+
+        // Gestion des options de scanner
+        document.querySelectorAll('.scanner-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.scanner-option').forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+            });
+        });
+
+        // Fonction de vérification QR code
+        async function verifyQRCode() {
+            const qrData = document.getElementById('qrData').value.trim();
+            
+            if (!qrData) {
+                showResult('error', '❌ Erreur', 'Veuillez saisir les données du QR code');
+                return;
+            }
+
+            showLoading(true);
+            hideResult();
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/registration/verify-qr`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ qrData })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    showResult('success', '✅ Vérification réussie', data.data);
+                    loadStats();
+                } else {
+                    showResult('error', '❌ Erreur de vérification', data.message);
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                showResult('error', '❌ Erreur de connexion', 'Impossible de contacter le serveur');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Afficher le résultat
+        function showResult(type, title, data) {
+            const resultSection = document.getElementById('resultSection');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultData = document.getElementById('resultData');
+
+            resultSection.className = `result-section ${type}`;
+            resultTitle.textContent = title;
+
+            if (typeof data === 'object') {
+                resultData.innerHTML = `
+                    <h4>📋 Informations de l'inscription</h4>
+                    <p><strong>Numéro :</strong> ${data.numeroInscription}</p>
+                    <p><strong>Nom :</strong> ${data.prenom} ${data.nom}</p>
+                    <p><strong>Email :</strong> ${data.email}</p>
+                    <p><strong>Téléphone :</strong> ${data.telephone}</p>
+                    <p><strong>Statut :</strong> ${data.statut}</p>
+                    <p><strong>Date d'inscription :</strong> ${new Date(data.createdAt).toLocaleString('fr-FR')}</p>
+                    ${data.entryMarked ? `<p><strong>✅ Entrée marquée :</strong> ${new Date(data.entryTime).toLocaleString('fr-FR')}</p>` : '<p><strong>⏳ Première entrée</strong></p>'}
+                `;
+            } else {
+                resultData.innerHTML = `<p>${data}</p>`;
+            }
+
+            resultSection.style.display = 'block';
+        }
+
+        // Masquer le résultat
+        function hideResult() {
+            document.getElementById('resultSection').style.display = 'none';
+        }
+
+        // Afficher/masquer le loading
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+
+        // Charger les statistiques
+        async function loadStats() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/registration/stats/public`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('totalRegistrations').textContent = data.data.total || 0;
+                    document.getElementById('confirmedRegistrations').textContent = data.data.confirmes || 0;
+                    document.getElementById('entriesMarked').textContent = data.data.entriesMarked || 0;
+                    document.getElementById('statsSection').style.display = 'grid';
+                }
+            } catch (error) {
+                console.error('Erreur chargement stats:', error);
+            }
+        }
+
+        // Charger les stats au démarrage
+        loadStats();
+
+        // Exemple de données QR code pour test
+        document.getElementById('qrData').addEventListener('focus', function() {
+            if (!this.value) {
+                this.value = '{"numeroInscription":"SALON2025-000001","nom":"Dupont","prenom":"Jean","email":"jean@example.com","telephone":"+242123456789","statut":"en-attente"}';
+            }
+        });
+    </script>
+</body>
+</html>
