@@ -5,9 +5,15 @@
 
 > Plateforme web d'inscription pour le Salon National de l'Emploi Jeune organisé par l'ACPE (Agence Congolaise Pour l'Emploi).
 
-## 🌐 Site en ligne
+## 🌐 URLs de Production
 
-**🔗 [https://emploi-1qkys5wkn-kitutupros-projects.vercel.app](https://emploi-1qkys5wkn-kitutupros-projects.vercel.app)**
+| Service | URL |
+|---------|-----|
+| **🎯 Frontend** | [https://front-ak5owrg7r-kitutupros-projects.vercel.app](https://front-ak5owrg7r-kitutupros-projects.vercel.app) |
+| **⚙️ Backend** | [https://backend-mauve-phi-53.vercel.app](https://backend-mauve-phi-53.vercel.app) |
+| **📊 Dashboard** | [https://dashboard-44fjp7adv-kitutupros-projects.vercel.app](https://dashboard-44fjp7adv-kitutupros-projects.vercel.app) |
+
+**📚 Documentation complète** : Voir `URLS.md`
 
 ## 📋 Caractéristiques
 
@@ -21,28 +27,58 @@
 
 ## 🚀 Démarrage rapide
 
-### Prérequis
+### ⚡ Guide Rapide (15 min)
+
+**Pour mettre en production** :
+1. Consultez **`QUICKSTART.md`** - Guide en 3 étapes
+2. Configurez MongoDB Atlas (5 min)
+3. Ajoutez les variables Vercel (5 min)
+4. Redéployez (5 min)
+
+### 💻 Développement Local
+
+#### Prérequis
 - Node.js 18+ 
 - npm ou yarn
+- MongoDB (local ou Atlas)
 
-### Installation
+#### Installation
 
 ```bash
 # Cloner le projet
-git clone https://github.com/votre-username/salon-emploi-acpe-2025.git
+git clone https://github.com/bossygit/salon-emploi-acpe-2025.git
 cd salon-emploi-acpe-2025
 
-# Aller dans le dossier frontend
+# Frontend
 cd front
-
-# Installer les dépendances
 npm install
-
-# Lancer le serveur de développement
 npm run dev
+# Ouvre sur http://localhost:3000
+
+# Backend (nouveau terminal)
+cd ../backend
+npm install
+npm run dev
+# Écoute sur http://localhost:5000
+
+# Dashboard (nouveau terminal)
+cd ../dashboard
+npm install
+npm run dev
+# Ouvre sur http://localhost:3002
 ```
 
-Ouvrez [http://localhost:3000](http://localhost:3000) dans votre navigateur.
+### 📚 Documentation
+
+| Fichier | Description |
+|---------|-------------|
+| **QUICKSTART.md** | 🚀 Démarrage rapide (15 min) |
+| **STATUS.md** | 📊 État actuel du projet |
+| **DEPLOYMENT.md** | 📖 Guide de déploiement détaillé |
+| **URLS.md** | 🔗 Toutes les URLs de production |
+| **INTEGRATION.md** | 🔌 Connecter Frontend-Backend-Dashboard |
+| **MONGODB_SETUP.md** | 🗄️ Configuration MongoDB |
+| **VERCEL_PROTECTION.md** | 🔐 Résoudre erreur 401 |
 
 ### Structure du projet
 
