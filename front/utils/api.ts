@@ -57,7 +57,7 @@ export const registrationAPI = {
     async create(data: RegistrationData, cvFile?: File | null): Promise<ApiResponse<{ numeroInscription: string }>> {
         try {
             const formData = new FormData();
-            
+
             // Ajouter toutes les données du formulaire
             Object.entries(data).forEach(([key, value]) => {
                 if (key !== 'cvFile' && value !== null && value !== undefined) {
@@ -68,7 +68,7 @@ export const registrationAPI = {
                     }
                 }
             });
-            
+
             // Ajouter le fichier CV s'il existe
             if (cvFile) {
                 formData.append('cv', cvFile);

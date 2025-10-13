@@ -23,7 +23,11 @@ const allowedOrigins = [
   'http://localhost:3000',  // Frontend principal
   'http://localhost:3002',  // Dashboard admin
   'http://127.0.0.1:3000',
-  'http://127.0.0.1:3002'
+  'http://127.0.0.1:3002',
+  'https://front-ak5owrg7r-kitutupros-projects.vercel.app',  // Frontend Vercel
+  'https://front-emxqfbaxa-kitutupros-projects.vercel.app',  // Frontend Vercel (ancienne)
+  'https://dashboard-csp53tk8u-kitutupros-projects.vercel.app',  // Dashboard Vercel
+  'https://dashboard-hpbypzu8m-kitutupros-projects.vercel.app'  // Dashboard Vercel (ancienne)
 ];
 
 app.use(cors({
@@ -34,7 +38,14 @@ app.use(cors({
     if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
-      callback(new Error('Non autorisé par CORS'));
+      console.warn(`❌ CORS: Origine non autorisée: ${origin}`);
+      // En production, accepter temporairement toutes les origines Vercel
+      if (origin && origin.includes('.vercel.app')) {
+        console.log(`⚠️ CORS: Autorisation temporaire pour ${origin}`);
+        callback(null, true);
+      } else {
+        callback(new Error('Non autorisé par CORS'));
+      }
     }
   },
   credentials: true
@@ -65,14 +76,43 @@ app.use('/api/registration', registrationRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/acpe', acpeRoutes);
 
-// Route de santé
-app.get('/api/health', (req, res) => {
-  res.json({
+// Route de santé améliorée
+app.get('/api/health', async (req, res) => {
+  const healthCheck = {
     status: 'OK',
     message: 'API Salon Emploi 2025 - Opérationnelle',
     timestamp: new Date().toISOString(),
-    version: '1.0.0'
-  });
+    version: '1.0.0',
+    environment: process.env.NODE_ENV || 'development',
+    database: 'disconnected'
+  };
+
+  // Vérifier la connexion MongoDB
+  try {
+    if (mongoose.connection.readyState === 1) {
+      healthCheck.database = 'connected';
+      healthCheck.mongodb = {
+        status: 'connected',
+        name: mongoose.connection.name,
+        host: mongoose.connection.host
+      };
+    } else {
+      healthCheck.database = 'disconnected';
+      healthCheck.mongodb = {
+        status: 'disconnected',
+        readyState: mongoose.connection.readyState
+      };
+    }
+  } catch (error) {
+    healthCheck.database = 'error';
+    healthCheck.mongodb = {
+      status: 'error',
+      error: error.message
+    };
+  }
+
+  const statusCode = healthCheck.database === 'connected' ? 200 : 503;
+  res.status(statusCode).json(healthCheck);
 });
 
 // Route racine

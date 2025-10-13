@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Sidebar from '@/components/Sidebar';
 import StatsCard from '@/components/StatsCard';
+import ErrorDisplay from '@/components/ErrorDisplay';
 import { Users, CheckCircle, Clock, XCircle, BarChart3, Settings } from 'lucide-react';
 import { apiClient } from '@/lib/api';
 import { Stats } from '@/types';
@@ -10,20 +11,25 @@ import { Stats } from '@/types';
 export default function Dashboard() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<Error | null>(null);
+
+  const fetchStats = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      console.log('🔄 Chargement des statistiques...');
+      const response = await apiClient.getStats();
+      console.log('✅ Statistiques reçues:', response);
+      setStats(response.data as Stats);
+    } catch (err) {
+      console.error('❌ Erreur lors du chargement:', err);
+      setError(err instanceof Error ? err : new Error('Erreur inconnue'));
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const response = await apiClient.getStats();
-        setStats(response.data as Stats);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Erreur lors du chargement');
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchStats();
   }, []);
 
@@ -39,22 +45,7 @@ export default function Dashboard() {
   }
 
   if (error) {
-    return (
-      <div className="flex h-screen">
-        <Sidebar />
-        <div className="flex-1 flex items-center justify-center">
-          <div className="text-center">
-            <p className="text-danger-600 mb-4">{error}</p>
-            <button 
-              onClick={() => window.location.reload()}
-              className="btn-primary"
-            >
-              Réessayer
-            </button>
-          </div>
-        </div>
-      </div>
-    );
+    return <ErrorDisplay error={error} onRetry={fetchStats} />;
   }
 
   return (
