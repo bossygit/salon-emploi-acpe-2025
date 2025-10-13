@@ -32,6 +32,9 @@
 git clone https://github.com/votre-username/salon-emploi-acpe-2025.git
 cd salon-emploi-acpe-2025
 
+# Aller dans le dossier frontend
+cd front
+
 # Installer les dépendances
 npm install
 
@@ -41,13 +44,28 @@ npm run dev
 
 Ouvrez [http://localhost:3000](http://localhost:3000) dans votre navigateur.
 
+### Structure du projet
+
+```
+salon-emploi-acpe-2025/
+├── front/                  # Application Next.js
+│   ├── pages/             # Pages de l'application
+│   ├── styles/            # Styles CSS
+│   ├── public/            # Assets statiques
+│   └── emploi-plateforme.tsx  # Composant principal
+├── README.md              # Documentation principale
+├── LICENSE                # Licence MIT
+└── [scripts]              # Scripts d'installation et déploiement
+```
+
 ### Scripts disponibles
 
 ```bash
-npm run dev      # Serveur de développement
-npm run build    # Build de production
-npm run start    # Serveur de production
-npm run lint     # Vérification du code
+cd front                 # Aller dans le dossier frontend
+npm run dev              # Serveur de développement
+npm run build            # Build de production
+npm run start            # Serveur de production
+npm run lint             # Vérification du code
 ```
 
 ## 🛠️ Technologies

@@ -5,8 +5,8 @@ echo "======================================================================="
 echo ""
 
 # Vérifier si nous sommes dans le bon répertoire
-if [ ! -f "package.json" ]; then
-    echo "❌ Erreur : package.json non trouvé"
+if [ ! -d "front" ]; then
+    echo "❌ Erreur : dossier 'front' non trouvé"
     echo "Veuillez exécuter ce script depuis le répertoire du projet"
     exit 1
 fi

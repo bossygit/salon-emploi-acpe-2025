@@ -33,6 +33,9 @@ echo "1) Déploiement de test (Preview)"
 echo "2) Déploiement en production"
 read -p "Votre choix (1 ou 2) : " choice
 
+# Aller dans le dossier front pour le déploiement
+cd front || { echo "❌ Erreur : dossier 'front' non trouvé"; exit 1; }
+
 case $choice in
     1)
         echo "🧪 Déploiement de test en cours..."

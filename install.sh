@@ -4,6 +4,9 @@ echo "🚀 Installation de la Plateforme d'Enregistrement - Salon de l'Emploi"
 echo "================================================================="
 echo ""
 
+# Aller dans le dossier front
+cd front || { echo "❌ Erreur : dossier 'front' non trouvé"; exit 1; }
+
 # Vérifier si nous sommes dans le bon répertoire
 if [ ! -f "package.json" ]; then
     echo "❌ Erreur : package.json non trouvé"
@@ -28,8 +31,9 @@ else
     echo "❌ Échec de l'installation automatique"
     echo ""
     echo "Veuillez essayer manuellement :"
-    echo "  1. sudo chown -R \$(whoami) ~/.npm"
-    echo "  2. npm install"
+    echo "  1. cd front"
+    echo "  2. sudo chown -R \$(whoami) ~/.npm"
+    echo "  3. npm install"
     echo ""
     echo "Ou utilisez yarn/pnpm :"
     echo "  npm install -g yarn && yarn install"
@@ -55,6 +59,7 @@ echo "================================================================="
 echo "✅ Installation terminée avec succès !"
 echo ""
 echo "Pour démarrer le serveur de développement :"
+echo "  cd front"
 echo "  npm run dev"
 echo ""
 echo "Puis ouvrez votre navigateur sur : http://localhost:3000"
