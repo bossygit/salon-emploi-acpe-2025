@@ -39,7 +39,9 @@ curl https://backend-mauve-phi-53.vercel.app/api/health
 ---
 
 ### 3. Dashboard (Administration)
-**URL de Production** : https://dashboard-7wvqgc1ha-kitutupros-projects.vercel.app
+**URL de Production** : https://dashboard-44fjp7adv-kitutupros-projects.vercel.app
+
+**URL Alternative** : https://dashboard-7wvqgc1ha-kitutupros-projects.vercel.app
 
 **Description** : Interface d'administration pour gérer les inscriptions
 - Liste des inscriptions
@@ -133,12 +135,18 @@ Réponse attendue :
 Visitez : https://front-ak5owrg7r-kitutupros-projects.vercel.app
 
 ### Tester le Dashboard
-Visitez : https://dashboard-7wvqgc1ha-kitutupros-projects.vercel.app
+Visitez : https://dashboard-44fjp7adv-kitutupros-projects.vercel.app
 
-**Note**: Si vous voyez un message d'erreur détaillé, c'est normal ! Les erreurs sont maintenant très explicites et vous guideront pour :
-- Configurer MongoDB Atlas
-- Vérifier les variables d'environnement
-- Diagnostiquer les problèmes CORS
+**Statut actuel** : Le dashboard devrait maintenant afficher un message d'erreur détaillé avec :
+- 🔄 URL tentée : `https://backend-mauve-phi-53.vercel.app/api/...`
+- 📡 Diagnostics détaillés
+- ⚡ Actions suggérées
+- 📋 Informations techniques complètes
+
+**Raison de l'erreur** : MongoDB est en mode "connecting" (readyState: 2)
+- Vous devez configurer MongoDB Atlas
+- Ajouter la variable `MONGODB_URI` sur Vercel
+- Voir `DEPLOYMENT.md` pour les détails
 
 ---
 
