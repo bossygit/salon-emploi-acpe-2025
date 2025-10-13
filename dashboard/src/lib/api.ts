@@ -1,6 +1,6 @@
 import { Registration, Stats, QRVerificationResult, ApiResponse } from '@/types';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backend-1vzhrzgny-kitutupros-projects.vercel.app/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backend-mauve-phi-53.vercel.app/api';
 
 class ApiClient {
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<ApiResponse<T>> {
@@ -15,15 +15,15 @@ class ApiClient {
 
     try {
       console.log(`🔄 Appel API: ${url}`);
-      
+
       const response = await fetch(url, { ...defaultOptions, ...options });
-      
+
       console.log(`📡 Statut HTTP: ${response.status} ${response.statusText}`);
 
       // Tentative de lecture du body
       let data;
       const contentType = response.headers.get('content-type');
-      
+
       if (contentType && contentType.includes('application/json')) {
         data = await response.json();
       } else {

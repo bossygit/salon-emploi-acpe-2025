@@ -34,7 +34,7 @@ app.use(cors({
   origin: function (origin, callback) {
     // Permettre les requêtes sans origine (ex: Postman, curl)
     if (!origin) return callback(null, true);
-    
+
     if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
@@ -140,7 +140,7 @@ app.use('*', (req, res) => {
 // Middleware de gestion d'erreurs global
 app.use((err, req, res, next) => {
   console.error('Erreur serveur:', err);
-  
+
   res.status(err.status || 500).json({
     error: 'Erreur interne du serveur',
     message: process.env.NODE_ENV === 'development' ? err.message : 'Une erreur est survenue'
@@ -163,7 +163,7 @@ const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
   await connectDB();
-  
+
   app.listen(PORT, '127.0.0.1', () => {
     console.log(`🚀 Serveur démarré sur le port ${PORT}`);
     console.log(`📱 API disponible sur: http://127.0.0.1:${PORT}`);

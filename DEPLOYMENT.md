@@ -7,8 +7,9 @@
 - **Inspect** : https://vercel.com/kitutupros-projects/front/7wDWNW65mxXTMsvc3xKZvAvfSyjV
 
 ### 🔧 Backend (API)
-- **Production** : https://backend-1vzhrzgny-kitutupros-projects.vercel.app
-- **Inspect** : https://vercel.com/kitutupros-projects/backend/CoZPALD6KMeSYyGBkDnEqToS9MLk
+- **Production** : https://backend-mauve-phi-53.vercel.app ✅
+- **Alternative** : https://backend-nbawuzqq9-kitutupros-projects.vercel.app
+- **Ancienne** : https://backend-1vzhrzgny-kitutupros-projects.vercel.app
 
 ### 📊 Dashboard (Admin)
 - **Production** : https://dashboard-hpbypzu8m-kitutupros-projects.vercel.app
@@ -28,7 +29,7 @@ Vous devez configurer les variables d'environnement sur Vercel pour le backend :
 
 ```env
 # MongoDB
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/salon-emploi-2025
+MONGODB_URI=mongodb+srv://euloge348_db_user:<db_password>@cluster0.vht9dh5.mongodb.net/
 
 # JWT
 JWT_SECRET=your-super-secret-jwt-key-here

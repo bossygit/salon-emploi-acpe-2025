@@ -14,7 +14,9 @@
 ---
 
 ### 2. Backend (API)
-**URL de Production** : https://backend-nbawuzqq9-kitutupros-projects.vercel.app
+**URL de Production** : https://backend-mauve-phi-53.vercel.app
+
+**URL Alternative** : https://backend-nbawuzqq9-kitutupros-projects.vercel.app
 
 **Description** : API REST pour gérer les inscriptions
 - Endpoints : `/api/registration`, `/api/acpe/verify`, `/api/admin`
@@ -31,7 +33,7 @@
 
 **Test rapide** :
 ```bash
-curl https://backend-nbawuzqq9-kitutupros-projects.vercel.app/api/health
+curl https://backend-mauve-phi-53.vercel.app/api/health
 ```
 
 ---
@@ -92,7 +94,7 @@ Ajoutez :
 
 ### Tester le Backend
 ```bash
-curl https://backend-nbawuzqq9-kitutupros-projects.vercel.app/api/health
+curl https://backend-mauve-phi-53.vercel.app/api/health
 ```
 
 La réponse doit indiquer le statut de MongoDB :
@@ -104,6 +106,25 @@ La réponse doit indiquer le statut de MongoDB :
   "mongodb": {
     "status": "connected",
     "name": "salon-emploi-2025"
+  }
+}
+```
+
+**Route racine** (vérifier que l'API répond) :
+```bash
+curl https://backend-mauve-phi-53.vercel.app/
+```
+
+Réponse attendue :
+```json
+{
+  "message": "API Backend - Salon National de l'Emploi Jeune 2025",
+  "version": "1.0.0",
+  "endpoints": {
+    "health": "/api/health",
+    "registration": "/api/registration",
+    "admin": "/api/admin",
+    "acpe": "/api/acpe"
   }
 }
 ```

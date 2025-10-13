@@ -51,7 +51,7 @@ export default function Dashboard() {
   return (
     <div className="flex h-screen">
       <Sidebar />
-      
+
       <div className="flex-1 overflow-auto bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
         <div className="p-8">
           {/* Header moderne */}
@@ -73,7 +73,7 @@ export default function Dashboard() {
                   </p>
                 </div>
               </div>
-              
+
               {/* Barre de statut */}
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-2 bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30 shadow-lg">
@@ -104,12 +104,12 @@ export default function Dashboard() {
               icon={CheckCircle}
               color="success"
             />
-        <StatsCard
-          title="Annulées"
-          value={stats?.inscriptionsAnnulees || 0}
-          icon={XCircle}
-          color="danger"
-        />
+            <StatsCard
+              title="Annulées"
+              value={stats?.inscriptionsAnnulees || 0}
+              icon={XCircle}
+              color="danger"
+            />
             <StatsCard
               title="Entrées Marquées"
               value={stats?.entriesMarked || 0}
