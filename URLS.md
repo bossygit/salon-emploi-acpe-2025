@@ -14,7 +14,7 @@
 ---
 
 ### 2. Backend (API)
-**URL de Production** : https://backend-1vzhrzgny-kitutupros-projects.vercel.app
+**URL de Production** : https://backend-nbawuzqq9-kitutupros-projects.vercel.app
 
 **Description** : API REST pour gérer les inscriptions
 - Endpoints : `/api/registration`, `/api/acpe/verify`, `/api/admin`
@@ -23,15 +23,21 @@
 - Génération de numéros d'inscription
 
 **Points d'accès API** :
+- GET `/api/health` - Vérifier la santé du serveur et MongoDB
 - POST `/api/registration` - Créer une inscription
 - GET `/api/registration/:numero` - Récupérer une inscription
 - POST `/api/acpe/verify` - Vérifier un numéro ACPE
 - GET `/api/registration/stats/public` - Statistiques publiques
 
+**Test rapide** :
+```bash
+curl https://backend-nbawuzqq9-kitutupros-projects.vercel.app/api/health
+```
+
 ---
 
 ### 3. Dashboard (Administration)
-**URL de Production** : https://dashboard-csp53tk8u-kitutupros-projects.vercel.app
+**URL de Production** : https://dashboard-7wvqgc1ha-kitutupros-projects.vercel.app
 
 **Description** : Interface d'administration pour gérer les inscriptions
 - Liste des inscriptions
@@ -86,14 +92,32 @@ Ajoutez :
 
 ### Tester le Backend
 ```bash
-curl https://backend-1vzhrzgny-kitutupros-projects.vercel.app/api/health
+curl https://backend-nbawuzqq9-kitutupros-projects.vercel.app/api/health
+```
+
+La réponse doit indiquer le statut de MongoDB :
+```json
+{
+  "status": "OK",
+  "message": "API Salon Emploi 2025 - Opérationnelle",
+  "database": "connected",
+  "mongodb": {
+    "status": "connected",
+    "name": "salon-emploi-2025"
+  }
+}
 ```
 
 ### Tester le Frontend
 Visitez : https://front-ak5owrg7r-kitutupros-projects.vercel.app
 
 ### Tester le Dashboard
-Visitez : https://dashboard-csp53tk8u-kitutupros-projects.vercel.app
+Visitez : https://dashboard-7wvqgc1ha-kitutupros-projects.vercel.app
+
+**Note**: Si vous voyez un message d'erreur détaillé, c'est normal ! Les erreurs sont maintenant très explicites et vous guideront pour :
+- Configurer MongoDB Atlas
+- Vérifier les variables d'environnement
+- Diagnostiquer les problèmes CORS
 
 ---
 
