@@ -1,5 +1,8 @@
 // API utilities pour la plateforme d'enregistrement
-// Simulation des appels API pour le développement
+// Configuration pour le backend déployé
+
+// URL du backend (Vercel)
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backend-1vzhrzgny-kitutupros-projects.vercel.app/api';
 
 export interface ApiResponse<T = any> {
     success: boolean;
@@ -49,78 +52,89 @@ export interface ACPEVerificationData {
     };
 }
 
-// Simulation de l'API d'inscription
+// API d'inscription (appel réel au backend)
 export const registrationAPI = {
     async create(data: RegistrationData, cvFile?: File | null): Promise<ApiResponse<{ numeroInscription: string }>> {
-        // Simulation d'un délai réseau
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        try {
+            const formData = new FormData();
+            
+            // Ajouter toutes les données du formulaire
+            Object.entries(data).forEach(([key, value]) => {
+                if (key !== 'cvFile' && value !== null && value !== undefined) {
+                    if (Array.isArray(value)) {
+                        formData.append(key, JSON.stringify(value));
+                    } else {
+                        formData.append(key, value.toString());
+                    }
+                }
+            });
+            
+            // Ajouter le fichier CV s'il existe
+            if (cvFile) {
+                formData.append('cv', cvFile);
+            }
 
-        // Génération d'un numéro d'inscription simulé
-        const numeroInscription = `ACPE2025${Math.random().toString(36).substr(2, 8).toUpperCase()}`;
+            const response = await fetch(`${API_BASE_URL}/registration`, {
+                method: 'POST',
+                body: formData,
+            });
 
-        // Simulation de succès (90% de chance)
-        if (Math.random() > 0.1) {
+            const result = await response.json();
+
+            if (!response.ok) {
+                return {
+                    success: false,
+                    message: result.message || 'Erreur lors de l\'inscription'
+                };
+            }
+
             return {
                 success: true,
-                data: { numeroInscription },
-                message: 'Inscription créée avec succès'
+                data: { numeroInscription: result.data.numeroInscription },
+                message: result.message || 'Inscription créée avec succès'
             };
-        } else {
+        } catch (error) {
+            console.error('Registration API error:', error);
             return {
                 success: false,
-                message: 'Erreur lors de la création de l\'inscription. Veuillez réessayer.'
+                message: 'Erreur de connexion au serveur. Veuillez réessayer.'
             };
         }
     }
 };
 
-// Simulation de l'API de vérification ACPE
+// API de vérification ACPE (appel réel au backend)
 export const acpeAPI = {
     async verify(numeroACPE: string, email: string): Promise<ApiResponse<ACPEVerificationData>> {
-        // Simulation d'un délai réseau
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        try {
+            const response = await fetch(`${API_BASE_URL}/acpe/verify`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ numeroACPE, email }),
+            });
 
-        // Simulation de la vérification
-        const isValid = numeroACPE.length >= 8 && numeroACPE.includes('ACPE');
-        const alreadyUsed = Math.random() > 0.7; // 30% de chance d'être déjà utilisé
+            const result = await response.json();
 
-        if (!isValid) {
-            return {
-                success: true,
-                data: {
-                    valid: false,
-                    alreadyUsed: false,
-                    message: 'Numéro ACPE invalide. Vérifiez le format.'
-                }
-            };
-        }
-
-        if (alreadyUsed) {
-            return {
-                success: true,
-                data: {
-                    valid: true,
-                    alreadyUsed: true,
-                    message: 'Ce numéro ACPE est déjà utilisé pour une autre inscription.',
-                    data: {
-                        usedBy: {
-                            nom: 'Dupont',
-                            prenom: 'Jean',
-                            email: 'jean.dupont@example.cg'
-                        }
-                    }
-                }
-            };
-        }
-
-        return {
-            success: true,
-            data: {
-                valid: true,
-                alreadyUsed: false,
-                message: 'Numéro ACPE vérifié avec succès.'
+            if (!response.ok) {
+                return {
+                    success: false,
+                    message: result.message || 'Erreur lors de la vérification ACPE'
+                };
             }
-        };
+
+            return {
+                success: true,
+                data: result.data
+            };
+        } catch (error) {
+            console.error('ACPE verification error:', error);
+            return {
+                success: false,
+                message: 'Erreur de connexion au serveur. Veuillez réessayer.'
+            };
+        }
     }
 };
 
