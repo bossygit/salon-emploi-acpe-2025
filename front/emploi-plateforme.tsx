@@ -1401,12 +1401,12 @@ const RegistrationPlatform = () => {
 
                 {/* Affichage des erreurs de soumission */}
                 {submitError && (
-                  <div className="bg-red-500/20 border border-red-500/50 text-red-100 px-6 py-4 rounded-xl mb-6">
+                  <div className="bg-red-600 border border-red-700 text-white px-6 py-4 rounded-xl mb-6 shadow-lg">
                     <div className="flex items-center space-x-3">
-                      <AlertCircle className="w-6 h-6 text-red-300" />
+                      <AlertCircle className="w-6 h-6 text-white flex-shrink-0" />
                       <div>
-                        <h4 className="font-semibold">Erreur lors de l'inscription</h4>
-                        <p className="text-sm mt-1">{submitError}</p>
+                        <h4 className="font-semibold text-white">Erreur lors de l'inscription</h4>
+                        <p className="text-sm mt-1 text-white whitespace-pre-line">{submitError}</p>
                       </div>
                     </div>
                   </div>
