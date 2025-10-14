@@ -2,11 +2,11 @@
   "version": 2,
   "alias": ["front-two-indol.vercel.app"],
   "env": {
-    "NEXT_PUBLIC_API_URL": "https://backend-qxrolr9no-kitutupros-projects.vercel.app/api"
+    "NEXT_PUBLIC_API_URL": "https://backend-mauve-phi-53.vercel.app/api"
   },
   "build": {
     "env": {
-      "NEXT_PUBLIC_API_URL": "https://backend-qxrolr9no-kitutupros-projects.vercel.app/api"
+      "NEXT_PUBLIC_API_URL": "https://backend-mauve-phi-53.vercel.app/api"
     }
   }
 }
