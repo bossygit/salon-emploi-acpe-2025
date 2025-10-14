@@ -25,9 +25,8 @@ const RegistrationPlatform = () => {
     numeroACPE: '',
     souhaitInscriptionACPE: '',
     joursParticipation: [],
-    horairePrefere: '',
     objectifPrincipal: '',
-    ateliersInterets: [],
+    panelsInterets: [],
     accepteConditions: false,
     accepteTraitementDonnees: false,
     accepteCommunications: false
@@ -55,27 +54,60 @@ const RegistrationPlatform = () => {
     'Gamboma', 'Kinkala', 'Djambala', 'Ewo'
   ];
 
-  const ateliers = [
-    'Rédaction de CV et lettre de motivation',
-    'Simulation d\'entretien d\'embauche',
-    'Business plan et auto-emploi',
-    'Financement FONEA/FIGA',
-    'Marketing digital',
-    'Gestion d\'entreprise',
-    'Techniques de recherche d\'emploi'
+  const panels = [
+    {
+      id: 'panel1',
+      titre: 'Panel 1 : Défis du marché de l\'emploi local',
+      objectifs: [
+        'Présentation des Secteurs d\'activités',
+        'Métiers en tension',
+        'Niveau requis',
+        'Niveau de tension (fort, faible, moyen)',
+        'Solutions proposées'
+      ]
+    },
+    {
+      id: 'panel2',
+      titre: 'Panel 2 : L\'adéquation formation - emploi : rôle des universités et centres de formation',
+      objectifs: [
+        'Analyse des différents axes',
+        'Diagnostic',
+        'Rôle des acteurs',
+        'Compétences clés',
+        'Outils et initiatives'
+      ]
+    },
+    {
+      id: 'panel3',
+      titre: 'Panel 3 : Les secteurs qui recrutent : tendances et perspectives',
+      objectifs: [
+        'Axe d\'analyse',
+        'Cartographie actuelle',
+        'Évolution du marché',
+        'Compétences recherchées',
+        'Vision prospective'
+      ]
+    },
+    {
+      id: 'panel4',
+      titre: 'Panel 4 : L\'entrepreneuriat comme voie d\'insertion professionnelle',
+      objectifs: [
+        'Contexte et enjeux',
+        'Écosystème entrepreneurial',
+        'Formation et accompagnement',
+        'Témoignages et modèles',
+        'Solutions intégrées'
+      ]
+    }
   ];
 
   const joursSalon = [
     '2025-10-28',
-    '2025-10-29', 
+    '2025-10-29',
     '2025-10-30'
   ];
 
-  const horaires = [
-    'matin',
-    'apres-midi',
-    'toute-la-journee'
-  ];
+  // Horaires supprimés (champ retiré du formulaire)
 
   const objectifs = [
     'emploi',
@@ -110,27 +142,25 @@ const RegistrationPlatform = () => {
     if (!formData.telephone) newErrors.telephone = 'Le téléphone est obligatoire';
     if (!formData.email) newErrors.email = 'L\'email est obligatoire';
     if (!formData.inscritACPE) newErrors.inscritACPE = 'Cette information est obligatoire';
-    
+
     // ACPE (numéro optionnel maintenant)
     if (formData.inscritACPE === 'oui' && !formData.numeroACPE) {
       // Juste un avertissement, pas d'erreur bloquante
       console.log('⚠️ Avertissement: Inscrit ACPE mais pas de numéro fourni');
     }
-    
+
     // NOUVEAUX CHAMPS OBLIGATOIRES
     if (!formData.situationActuelle || formData.situationActuelle === '') {
       newErrors.situationActuelle = 'La situation actuelle est obligatoire';
     }
-    if (!formData.horairePrefere || formData.horairePrefere === '') {
-      newErrors.horairePrefere = 'L\'horaire préféré est obligatoire';
-    }
+    // Horaire préféré supprimé
     if (!formData.objectifPrincipal || formData.objectifPrincipal === '') {
       newErrors.objectifPrincipal = 'L\'objectif principal est obligatoire';
     }
     if (!formData.joursParticipation || formData.joursParticipation.length === 0) {
       newErrors.joursParticipation = 'Veuillez sélectionner au moins un jour de participation';
     }
-    
+
     // Validation des acceptations
     if (!formData.accepteConditions) {
       newErrors.accepteConditions = 'Vous devez accepter les conditions d\'utilisation';
@@ -216,9 +246,9 @@ const RegistrationPlatform = () => {
         {/* Particules flottantes */}
         <div className="absolute inset-0 z-10">
           <div className="absolute top-20 left-10 w-4 h-4 bg-primary rounded-full animate-float opacity-60"></div>
-          <div className="absolute top-40 right-20 w-6 h-6 bg-white/30 rounded-full animate-float opacity-40" style={{animationDelay: '1s'}}></div>
-          <div className="absolute bottom-40 left-20 w-3 h-3 bg-success rounded-full animate-float opacity-50" style={{animationDelay: '2s'}}></div>
-          <div className="absolute top-60 right-40 w-5 h-5 bg-secondary rounded-full animate-float opacity-30" style={{animationDelay: '0.5s'}}></div>
+          <div className="absolute top-40 right-20 w-6 h-6 bg-white/30 rounded-full animate-float opacity-40" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute bottom-40 left-20 w-3 h-3 bg-success rounded-full animate-float opacity-50" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-60 right-40 w-5 h-5 bg-secondary rounded-full animate-float opacity-30" style={{ animationDelay: '0.5s' }}></div>
         </div>
 
         {/* Header moderne */}
@@ -228,13 +258,13 @@ const RegistrationPlatform = () => {
               <div className="flex items-center space-x-4 animate-fadeInLeft">
                 <div className="relative">
                   <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center p-3 shadow-lg hover-glow">
-                  <Image
-                    src="/logo.png"
-                    alt="Logo ACPE"
+                    <Image
+                      src="/logo.png"
+                      alt="Logo ACPE"
                       width={40}
                       height={40}
-                    className="object-contain"
-                  />
+                      className="object-contain"
+                    />
                   </div>
                   <div className="absolute -top-1 -right-1 w-6 h-6 bg-secondary rounded-full flex items-center justify-center">
                     <span className="text-xs font-bold text-white">2025</span>
@@ -249,7 +279,7 @@ const RegistrationPlatform = () => {
                 <div className="flex items-center space-x-3 text-white">
                   <div className="p-2 bg-white/20 rounded-full">
                     <Calendar className="w-6 h-6" />
-                </div>
+                  </div>
                   <div>
                     <span className="font-bold text-lg">28-30 Octobre 2025</span>
                     <p className="text-sm text-white/80">Palais des Congrès, Brazzaville</p>
@@ -266,23 +296,23 @@ const RegistrationPlatform = () => {
             <div className="text-center mb-16">
               <div className="inline-block mb-6">
                 <span className="bg-gradient-to-r from-primary to-success text-white px-8 py-3 rounded-full text-sm font-bold animate-bounce-custom shadow-lg">
-                   ÉVÉNEMENT NATIONAL
+                  ÉVÉNEMENT NATIONAL
                 </span>
               </div>
-              
+
               <h2 className="text-5xl md:text-7xl font-bold mb-8 text-white text-shadow animate-fadeInUp">
                 <span className="block">Salon National</span>
                 <span className="block text-secondary font-extrabold">de l&apos;Emploi</span>
                 <span className="block text-4xl md:text-5xl mt-4">Jeune 2025</span>
-            </h2>
-              
-              <p className="text-xl md:text-2xl mb-12 text-white/90 max-w-4xl mx-auto leading-relaxed animate-fadeInUp" style={{animationDelay: '0.3s'}}>
-                Transformez votre avenir professionnel ! Rencontrez plus de 
-                <span className="text-white font-black animate-pulse-custom"> 100 entreprises</span> et accédez à 
-                <span className="text-white font-black animate-pulse-custom" style={{animationDelay: '0.5s'}}> 1000+ opportunités</span> d&apos;emploi et d&apos;auto-emploi.
+              </h2>
+
+              <p className="text-xl md:text-2xl mb-12 text-white/90 max-w-4xl mx-auto leading-relaxed animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
+                Transformez votre avenir professionnel ! Rencontrez plus de
+                <span className="text-white font-black animate-pulse-custom"> 100 entreprises</span> et accédez à
+                <span className="text-white font-black animate-pulse-custom" style={{ animationDelay: '0.5s' }}> 1000+ opportunités</span> d&apos;emploi et d&apos;auto-emploi.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 animate-fadeInUp" style={{animationDelay: '0.6s'}}>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
                 <button
                   onClick={() => setStep('registration')}
                   className="group relative bg-gradient-to-r from-secondary to-red-600 text-white px-12 py-5 rounded-2xl text-xl font-bold transition-all transform hover:scale-105 hover-glow inline-flex items-center space-x-3 shadow-2xl"
@@ -291,7 +321,7 @@ const RegistrationPlatform = () => {
                   <CheckCircle className="w-6 h-6 relative z-10 group-hover:animate-bounce-custom" />
                   <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-secondary rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </button>
-                
+
                 <div className="flex items-center space-x-2 text-white/80">
                   <CheckCircle className="w-5 h-5 text-success" />
                   <span className="text-sm">Inscription gratuite</span>
@@ -302,14 +332,14 @@ const RegistrationPlatform = () => {
             {/* Cards avec animations - Design innovant */}
             <div className="grid md:grid-cols-3 gap-8 mb-16">
               {/* Card 1: Entreprises */}
-              <div className="group relative animate-fadeInUp" style={{animationDelay: '0.9s'}}>
+              <div className="group relative animate-fadeInUp" style={{ animationDelay: '0.9s' }}>
                 <div className="relative overflow-hidden rounded-3xl bg-white/95 backdrop-blur-sm border border-primary/20 hover:border-primary/40 transition-all duration-500 hover:scale-105 shadow-2xl">
                   {/* Background pattern */}
                   <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-4 right-4 w-32 h-32 bg-primary rounded-full blur-3xl"></div>
                     <div className="absolute bottom-4 left-4 w-24 h-24 bg-secondary rounded-full blur-2xl"></div>
                   </div>
-                  
+
                   <div className="relative p-8">
                     {/* Header avec icône flottante */}
                     <div className="flex items-start justify-between mb-6">
@@ -330,7 +360,7 @@ const RegistrationPlatform = () => {
                     {/* Contenu */}
                     <h3 className="text-2xl font-bold text-gray-800 mb-3">Recruteurs Premium</h3>
                     <p className="text-gray-600 mb-6 leading-relaxed">Rencontrez les décideurs des plus grandes entreprises du Congo</p>
-                    
+
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2 mb-6">
                       <span className="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-medium">Recrutement</span>
@@ -339,28 +369,28 @@ const RegistrationPlatform = () => {
 
                     {/* Action button */}
                     <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    alert('Liste des entreprises bientôt disponible !');
-                  }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        alert('Liste des entreprises bientôt disponible !');
+                      }}
                       className="w-full bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white py-3 px-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2"
-                >
+                    >
                       <span>Découvrir les entreprises</span>
-                  <ExternalLink className="w-4 h-4" />
+                      <ExternalLink className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
               </div>
 
               {/* Card 2: Opportunités */}
-              <div className="group relative animate-fadeInUp" style={{animationDelay: '1.2s'}}>
+              <div className="group relative animate-fadeInUp" style={{ animationDelay: '1.2s' }}>
                 <div className="relative overflow-hidden rounded-3xl bg-white/95 backdrop-blur-sm border border-success/20 hover:border-success/40 transition-all duration-500 hover:scale-105 shadow-2xl">
                   {/* Background pattern */}
                   <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-4 right-4 w-32 h-32 bg-success rounded-full blur-3xl"></div>
                     <div className="absolute bottom-4 left-4 w-24 h-24 bg-primary rounded-full blur-2xl"></div>
-                </div>
-                  
+                  </div>
+
                   <div className="relative p-8">
                     {/* Header avec icône flottante */}
                     <div className="flex items-start justify-between mb-6">
@@ -376,18 +406,18 @@ const RegistrationPlatform = () => {
                         <div className="text-3xl font-black text-success mb-1">1000+</div>
                         <div className="text-xs text-gray-500 uppercase tracking-wider">Offres</div>
                       </div>
-              </div>
+                    </div>
 
                     {/* Contenu */}
                     <h3 className="text-2xl font-bold text-gray-800 mb-3">Opportunités d'Or</h3>
                     <p className="text-gray-600 mb-6 leading-relaxed">Emplois, stages, formations et accompagnement à l'entrepreneuriat</p>
-                    
+
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2 mb-6">
                       <span className="bg-success/20 text-success px-3 py-1 rounded-full text-xs font-medium">Emplois</span>
                       <span className="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-medium">Stages</span>
                       <span className="bg-secondary/20 text-secondary px-3 py-1 rounded-full text-xs font-medium">Formations</span>
-                </div>
+                    </div>
 
                     {/* Action button */}
                     <button className="w-full bg-gradient-to-r from-success to-green-600 hover:from-green-600 hover:to-success text-white py-3 px-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2">
@@ -395,18 +425,18 @@ const RegistrationPlatform = () => {
                       <Briefcase className="w-4 h-4" />
                     </button>
                   </div>
+                </div>
               </div>
-            </div>
 
               {/* Card 3: Programme */}
-              <div className="group relative animate-fadeInUp" style={{animationDelay: '1.5s'}}>
+              <div className="group relative animate-fadeInUp" style={{ animationDelay: '1.5s' }}>
                 <div className="relative overflow-hidden rounded-3xl bg-white/95 backdrop-blur-sm border border-secondary/20 hover:border-secondary/40 transition-all duration-500 hover:scale-105 shadow-2xl">
                   {/* Background pattern */}
                   <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-4 right-4 w-32 h-32 bg-secondary rounded-full blur-3xl"></div>
                     <div className="absolute bottom-4 left-4 w-24 h-24 bg-success rounded-full blur-2xl"></div>
                   </div>
-                  
+
                   <div className="relative p-8">
                     {/* Header avec icône flottante */}
                     <div className="flex items-start justify-between mb-6">
@@ -427,7 +457,7 @@ const RegistrationPlatform = () => {
                     {/* Contenu */}
                     <h3 className="text-2xl font-bold text-gray-800 mb-3">Programme Intensif</h3>
                     <p className="text-gray-600 mb-6 leading-relaxed">Ateliers pratiques, conférences inspirantes et networking de qualité</p>
-                    
+
                     {/* Liste des activités */}
                     <div className="space-y-3 mb-6">
                       <div className="flex items-center space-x-3">
@@ -435,11 +465,11 @@ const RegistrationPlatform = () => {
                         <span className="text-gray-600 text-sm">Ateliers CV & entretiens</span>
                       </div>
                       <div className="flex items-center space-x-3">
-                        <div className="w-2 h-2 bg-success rounded-full animate-pulse-custom" style={{animationDelay: '0.5s'}}></div>
+                        <div className="w-2 h-2 bg-success rounded-full animate-pulse-custom" style={{ animationDelay: '0.5s' }}></div>
                         <span className="text-gray-600 text-sm">Conférences métier</span>
                       </div>
                       <div className="flex items-center space-x-3">
-                        <div className="w-2 h-2 bg-secondary rounded-full animate-pulse-custom" style={{animationDelay: '1s'}}></div>
+                        <div className="w-2 h-2 bg-secondary rounded-full animate-pulse-custom" style={{ animationDelay: '1s' }}></div>
                         <span className="text-gray-600 text-sm">Networking premium</span>
                       </div>
                     </div>
@@ -448,28 +478,28 @@ const RegistrationPlatform = () => {
                     <button className="w-full bg-gradient-to-r from-secondary to-red-600 hover:from-red-600 hover:to-secondary text-white py-3 px-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2">
                       <span>Voir le programme</span>
                       <Calendar className="w-4 h-4" />
-            </button>
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Section statistiques - Design moderne full width */}
-            <div className="w-screen bg-white py-24 animate-fadeInUp relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]" style={{animationDelay: '1.8s'}}>
+            <div className="w-screen bg-white py-24 animate-fadeInUp relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]" style={{ animationDelay: '1.8s' }}>
               <div className="w-full px-8">
                 <div className="text-center mb-24">
                   <div className="inline-block mb-12">
                     <span className="bg-primary text-white px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider">
                       Nos Résultats
                     </span>
-          </div>
+                  </div>
                   <h3 className="text-4xl font-black text-gray-900 mb-12 leading-tight">
                     <span className="block">Des chiffres qui</span>
                     <span className="block text-primary">parlent d&apos;eux-mêmes</span>
                   </h3>
                   <p className="text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed">La preuve de notre excellence à travers des statistiques impressionnantes</p>
                 </div>
-                
+
                 {/* Design en ligne horizontale */}
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
                   {/* Stat 1 */}
@@ -480,7 +510,7 @@ const RegistrationPlatform = () => {
                     <h4 className="text-2xl font-black text-gray-900 mb-4">Excellence</h4>
                     <p className="text-gray-600 text-base leading-relaxed mb-6">Taux de satisfaction exceptionnel</p>
                     <div className="w-full bg-gray-200 rounded-full h-4">
-                      <div className="bg-primary h-4 rounded-full transition-all duration-2000" style={{width: '95%'}}></div>
+                      <div className="bg-primary h-4 rounded-full transition-all duration-2000" style={{ width: '95%' }}></div>
                     </div>
                   </div>
 
@@ -495,7 +525,7 @@ const RegistrationPlatform = () => {
                     <h4 className="text-2xl font-black text-gray-900 mb-4">Succès</h4>
                     <p className="text-gray-600 text-base leading-relaxed mb-6">Jeunes embauchés l&apos;an dernier</p>
                     <div className="w-full bg-gray-200 rounded-full h-4">
-                      <div className="bg-success h-4 rounded-full transition-all duration-2000" style={{width: '85%'}}></div>
+                      <div className="bg-success h-4 rounded-full transition-all duration-2000" style={{ width: '85%' }}></div>
                     </div>
                   </div>
 
@@ -510,7 +540,7 @@ const RegistrationPlatform = () => {
                     <h4 className="text-2xl font-black text-gray-900 mb-4">Diversité</h4>
                     <p className="text-gray-600 text-base leading-relaxed mb-6">Secteurs d&apos;activité représentés</p>
                     <div className="w-full bg-gray-200 rounded-full h-4">
-                      <div className="bg-secondary h-4 rounded-full transition-all duration-2000" style={{width: '75%'}}></div>
+                      <div className="bg-secondary h-4 rounded-full transition-all duration-2000" style={{ width: '75%' }}></div>
                     </div>
                   </div>
 
@@ -525,7 +555,7 @@ const RegistrationPlatform = () => {
                     <h4 className="text-2xl font-black text-gray-900 mb-4">Disponibilité</h4>
                     <p className="text-gray-600 text-base leading-relaxed mb-6">Accès continu pendant 3 jours</p>
                     <div className="w-full bg-gray-200 rounded-full h-4">
-                      <div className="bg-primary h-4 rounded-full transition-all duration-2000" style={{width: '100%'}}></div>
+                      <div className="bg-primary h-4 rounded-full transition-all duration-2000" style={{ width: '100%' }}></div>
                     </div>
                   </div>
                 </div>
@@ -542,17 +572,17 @@ const RegistrationPlatform = () => {
             </div>
 
             {/* Call to action final - Design moderne */}
-            <div className="text-center mt-20 animate-fadeInUp" style={{animationDelay: '2.1s'}}>
+            <div className="text-center mt-20 animate-fadeInUp" style={{ animationDelay: '2.1s' }}>
               <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-12 max-w-4xl mx-auto shadow-2xl border border-white/20">
                 <div className="mb-8">
                   <span className="bg-primary text-white px-6 py-2 rounded-full text-sm font-bold uppercase tracking-wider">
                     🚀 Action
                   </span>
                 </div>
-                
+
                 <h3 className="text-4xl font-black text-gray-900 mb-6">Prêt à transformer votre avenir ?</h3>
                 <p className="text-gray-600 text-xl mb-10 max-w-3xl mx-auto leading-relaxed">Rejoignez des milliers de jeunes congolais qui ont déjà fait le choix de leur réussite professionnelle.</p>
-                
+
                 {/* Avantages en grille */}
                 <div className="grid md:grid-cols-3 gap-6 mb-10">
                   <div className="flex items-center justify-center space-x-3 bg-success/10 rounded-2xl p-4">
@@ -576,14 +606,14 @@ const RegistrationPlatform = () => {
                 </div>
 
                 {/* Bouton principal */}
-            <button
-              onClick={() => setStep('registration')}
+                <button
+                  onClick={() => setStep('registration')}
                   className="group relative bg-gradient-to-r from-primary to-success text-white px-16 py-5 rounded-2xl text-xl font-bold transition-all transform hover:scale-105 hover-glow inline-flex items-center space-x-4 shadow-2xl"
-            >
+                >
                   <span className="relative z-10">Commencer mon inscription</span>
                   <CheckCircle className="w-6 h-6 relative z-10 group-hover:animate-bounce-custom" />
                   <div className="absolute inset-0 bg-gradient-to-r from-success to-primary rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            </button>
+                </button>
               </div>
             </div>
           </div>
@@ -717,12 +747,12 @@ const RegistrationPlatform = () => {
                       Date de naissance
                     </label>
                     <div className="relative">
-                    <input
-                      type="date"
-                      value={formData.dateNaissance}
-                      onChange={(e) => handleInputChange('dateNaissance', e.target.value)}
+                      <input
+                        type="date"
+                        value={formData.dateNaissance}
+                        onChange={(e) => handleInputChange('dateNaissance', e.target.value)}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-gray-800 transition-all duration-300 group-hover:border-gray-300"
-                    />
+                      />
                       <div className="absolute inset-y-0 right-0 flex items-center pr-3">
                         <Calendar className="w-5 h-5 text-gray-400" />
                       </div>
@@ -734,15 +764,15 @@ const RegistrationPlatform = () => {
                       Sexe
                     </label>
                     <div className="relative">
-                    <select
-                      value={formData.sexe}
-                      onChange={(e) => handleInputChange('sexe', e.target.value)}
+                      <select
+                        value={formData.sexe}
+                        onChange={(e) => handleInputChange('sexe', e.target.value)}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-gray-800 transition-all duration-300 group-hover:border-gray-300 appearance-none"
-                    >
-                      <option value="">Sélectionner</option>
-                      <option value="M">Homme</option>
-                      <option value="F">Femme</option>
-                    </select>
+                      >
+                        <option value="">Sélectionner</option>
+                        <option value="M">Homme</option>
+                        <option value="F">Femme</option>
+                      </select>
                       <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                         <Users className="w-5 h-5 text-gray-400" />
                       </div>
@@ -754,13 +784,13 @@ const RegistrationPlatform = () => {
                       Téléphone <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                    <input
-                      type="tel"
-                      value={formData.telephone}
-                      onChange={(e) => handleInputChange('telephone', e.target.value)}
+                      <input
+                        type="tel"
+                        value={formData.telephone}
+                        onChange={(e) => handleInputChange('telephone', e.target.value)}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-gray-800 transition-all duration-300 group-hover:border-gray-300"
-                      placeholder="+242 XX XXX XXXX"
-                    />
+                        placeholder="+242 XX XXX XXXX"
+                      />
                       <div className="absolute inset-y-0 right-0 flex items-center pr-3">
                         <Phone className="w-5 h-5 text-gray-400" />
                       </div>
@@ -773,13 +803,13 @@ const RegistrationPlatform = () => {
                       Email <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                    <input
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      <input
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => handleInputChange('email', e.target.value)}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-gray-800 transition-all duration-300 group-hover:border-gray-300"
-                      placeholder="votre.email@exemple.cg"
-                    />
+                        placeholder="votre.email@exemple.cg"
+                      />
                       <div className="absolute inset-y-0 right-0 flex items-center pr-3">
                         <Mail className="w-5 h-5 text-gray-400" />
                       </div>
@@ -792,16 +822,16 @@ const RegistrationPlatform = () => {
                       Région
                     </label>
                     <div className="relative">
-                    <select
-                      value={formData.region}
-                      onChange={(e) => handleInputChange('region', e.target.value)}
+                      <select
+                        value={formData.region}
+                        onChange={(e) => handleInputChange('region', e.target.value)}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-gray-800 transition-all duration-300 group-hover:border-gray-300 appearance-none"
-                    >
-                      <option value="">Sélectionner une région</option>
-                      {regions.map(region => (
-                        <option key={region} value={region}>{region}</option>
-                      ))}
-                    </select>
+                      >
+                        <option value="">Sélectionner une région</option>
+                        {regions.map(region => (
+                          <option key={region} value={region}>{region}</option>
+                        ))}
+                      </select>
                       <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                         <MapPin className="w-5 h-5 text-gray-400" />
                       </div>
@@ -813,13 +843,13 @@ const RegistrationPlatform = () => {
                       Ville
                     </label>
                     <div className="relative">
-                    <input
-                      type="text"
-                      value={formData.ville}
-                      onChange={(e) => handleInputChange('ville', e.target.value)}
+                      <input
+                        type="text"
+                        value={formData.ville}
+                        onChange={(e) => handleInputChange('ville', e.target.value)}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-gray-800 transition-all duration-300 group-hover:border-gray-300"
-                      placeholder="Votre ville"
-                    />
+                        placeholder="Votre ville"
+                      />
                       <div className="absolute inset-y-0 right-0 flex items-center pr-3">
                         <MapPin className="w-5 h-5 text-gray-400" />
                       </div>
@@ -1112,16 +1142,15 @@ const RegistrationPlatform = () => {
                       <p className="text-xs text-gray-600 mt-2">
                         Vous trouverez ce numéro sur votre espace personnel ACPE
                       </p>
-                      
+
                       {/* Affichage du résultat de la vérification ACPE */}
                       {acpeVerification && (
-                        <div className={`mt-3 p-3 rounded-lg ${
-                          acpeVerification.valid 
-                            ? acpeVerification.alreadyUsed 
-                              ? 'bg-yellow-100 border border-yellow-300' 
-                              : 'bg-green-100 border border-green-300'
-                            : 'bg-red-100 border border-red-300'
-                        }`}>
+                        <div className={`mt-3 p-3 rounded-lg ${acpeVerification.valid
+                          ? acpeVerification.alreadyUsed
+                            ? 'bg-yellow-100 border border-yellow-300'
+                            : 'bg-green-100 border border-green-300'
+                          : 'bg-red-100 border border-red-300'
+                          }`}>
                           <div className="flex items-center space-x-2">
                             {acpeVerification.valid ? (
                               acpeVerification.alreadyUsed ? (
@@ -1132,13 +1161,12 @@ const RegistrationPlatform = () => {
                             ) : (
                               <AlertCircle className="w-5 h-5 text-red-600" />
                             )}
-                            <p className={`text-sm font-medium ${
-                              acpeVerification.valid 
-                                ? acpeVerification.alreadyUsed 
-                                  ? 'text-yellow-800' 
-                                  : 'text-green-800'
-                                : 'text-red-800'
-                            }`}>
+                            <p className={`text-sm font-medium ${acpeVerification.valid
+                              ? acpeVerification.alreadyUsed
+                                ? 'text-yellow-800'
+                                : 'text-green-800'
+                              : 'text-red-800'
+                              }`}>
                               {acpeVerification.message}
                             </p>
                           </div>
@@ -1236,10 +1264,10 @@ const RegistrationPlatform = () => {
                             className="mr-2"
                           />
                           <span className="text-sm text-gray-700">
-                            {new Date(jour).toLocaleDateString('fr-FR', { 
-                              weekday: 'long', 
-                              day: 'numeric', 
-                              month: 'long' 
+                            {new Date(jour).toLocaleDateString('fr-FR', {
+                              weekday: 'long',
+                              day: 'numeric',
+                              month: 'long'
                             })}
                           </span>
                         </label>
@@ -1248,23 +1276,7 @@ const RegistrationPlatform = () => {
                     {errors.joursParticipation && <p className="text-red-500 text-xs mt-1">{errors.joursParticipation}</p>}
                   </div>
 
-                  {/* Horaire préféré */}
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Horaire préféré <span className="text-red-500">*</span>
-                    </label>
-                    <select
-                      value={formData.horairePrefere}
-                      onChange={(e) => handleInputChange('horairePrefere', e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-gray-800"
-                    >
-                      <option value="">Sélectionner</option>
-                      <option value="matin">Matin (8h00 - 12h00)</option>
-                      <option value="apres-midi">Après-midi (14h00 - 18h00)</option>
-                      <option value="toute-la-journee">Toute la journée (8h00 - 18h00)</option>
-                    </select>
-                    {errors.horairePrefere && <p className="text-red-500 text-xs mt-1">{errors.horairePrefere}</p>}
-                  </div>
+                  {/* Horaire préféré supprimé */}
 
                   {/* Objectif principal */}
                   <div className="md:col-span-2">
@@ -1314,20 +1326,36 @@ const RegistrationPlatform = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Ateliers d'intérêt (plusieurs choix possibles)
+                  <label className="block text-sm font-semibold text-gray-700 mb-4">
+                    Panels et objectifs (sélectionnez vos centres d'intérêt)
                   </label>
-                  <div className="grid grid-cols-1 gap-2">
-                    {ateliers.map(atelier => (
-                      <label key={atelier} className="flex items-center p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-                        <input
-                          type="checkbox"
-                          checked={formData.ateliersInterets.includes(atelier)}
-                          onChange={() => handleMultiSelect('ateliersInterets', atelier)}
-                          className="mr-2"
-                        />
-                        <span className="text-sm text-gray-700">{atelier}</span>
-                      </label>
+
+                  <div className="grid grid-cols-1 gap-4">
+                    {panels.map((panel) => (
+                      <div key={panel.id} className="bg-white rounded-xl border border-gray-200 shadow-sm">
+                        <div className="px-4 py-3 bg-gray-50 border-b border-gray-200 rounded-t-xl">
+                          <div className="flex items-center justify-between">
+                            <h3 className="font-semibold text-gray-800">{panel.titre}</h3>
+                          </div>
+                        </div>
+                        <div className="p-4">
+                          <p className="text-sm text-gray-600 mb-3">Objectifs du panel :</p>
+                          <ul className="list-disc list-inside text-sm text-gray-700 space-y-1 mb-4">
+                            {panel.objectifs.map((obj, idx) => (
+                              <li key={idx}>{obj}</li>
+                            ))}
+                          </ul>
+                          <label className="inline-flex items-center">
+                            <input
+                              type="checkbox"
+                              checked={formData.panelsInterets.includes(panel.titre)}
+                              onChange={() => handleMultiSelect('panelsInterets', panel.titre)}
+                              className="mr-2"
+                            />
+                            <span className="text-sm text-gray-700">Je suis intéressé(e) par ce panel</span>
+                          </label>
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -1347,7 +1375,7 @@ const RegistrationPlatform = () => {
                       <span className="text-red-500">*</span> J'accepte les conditions d'utilisation
                     </span>
                   </label>
-                  
+
                   <label className="flex items-center space-x-2 cursor-pointer">
                     <input
                       type="checkbox"
@@ -1360,7 +1388,7 @@ const RegistrationPlatform = () => {
                     </span>
                   </label>
                 </div>
-                
+
                 {errors.accepteConditions && <p className="text-red-500 text-xs mb-2">{errors.accepteConditions}</p>}
                 {errors.accepteTraitementDonnees && <p className="text-red-500 text-xs mb-2">{errors.accepteTraitementDonnees}</p>}
               </div>
@@ -1436,10 +1464,10 @@ const RegistrationPlatform = () => {
         {/* Particules de célébration */}
         <div className="absolute inset-0 z-10">
           <div className="absolute top-20 left-10 w-6 h-6 bg-primary rounded-full animate-bounce-custom opacity-80"></div>
-          <div className="absolute top-40 right-20 w-4 h-4 bg-white rounded-full animate-float opacity-60" style={{animationDelay: '0.5s'}}></div>
-          <div className="absolute bottom-40 left-20 w-5 h-5 bg-success rounded-full animate-bounce-custom opacity-70" style={{animationDelay: '1s'}}></div>
-          <div className="absolute top-60 right-40 w-3 h-3 bg-secondary rounded-full animate-float opacity-50" style={{animationDelay: '1.5s'}}></div>
-          <div className="absolute bottom-60 right-10 w-4 h-4 bg-white rounded-full animate-bounce-custom opacity-60" style={{animationDelay: '2s'}}></div>
+          <div className="absolute top-40 right-20 w-4 h-4 bg-white rounded-full animate-float opacity-60" style={{ animationDelay: '0.5s' }}></div>
+          <div className="absolute bottom-40 left-20 w-5 h-5 bg-success rounded-full animate-bounce-custom opacity-70" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-60 right-40 w-3 h-3 bg-secondary rounded-full animate-float opacity-50" style={{ animationDelay: '1.5s' }}></div>
+          <div className="absolute bottom-60 right-10 w-4 h-4 bg-white rounded-full animate-bounce-custom opacity-60" style={{ animationDelay: '2s' }}></div>
         </div>
 
         {/* Header moderne */}
@@ -1448,13 +1476,13 @@ const RegistrationPlatform = () => {
             <div className="flex items-center space-x-4">
               <div className="relative">
                 <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center p-3 shadow-lg">
-                <Image
-                  src="/logo.png"
-                  alt="Logo ACPE"
+                  <Image
+                    src="/logo.png"
+                    alt="Logo ACPE"
                     width={40}
                     height={40}
-                  className="object-contain"
-                />
+                    className="object-contain"
+                  />
                 </div>
                 <div className="absolute -top-1 -right-1 w-6 h-6 bg-success rounded-full flex items-center justify-center animate-pulse-custom">
                   <CheckCircle className="w-4 h-4 text-white" />
@@ -1474,30 +1502,30 @@ const RegistrationPlatform = () => {
               <div className="relative inline-block mb-8">
                 <div className="w-32 h-32 bg-gradient-to-br from-primary to-success rounded-full flex items-center justify-center mx-auto shadow-2xl animate-bounce-custom">
                   <CheckCircle className="w-16 h-16 text-white" />
-              </div>
+                </div>
                 <div className="absolute -top-2 -right-2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center animate-pulse-custom">
                   <span className="text-white text-xs font-bold">✓</span>
                 </div>
               </div>
-              
+
               <div className="inline-block mb-6">
                 <span className="bg-gradient-to-r from-primary to-success text-white px-8 py-3 rounded-full text-sm font-bold animate-fadeInUp shadow-lg">
                   🎉 INSCRIPTION RÉUSSIE
                 </span>
               </div>
-              
-              <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white text-shadow animate-fadeInUp" style={{animationDelay: '0.3s'}}>
+
+              <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white text-shadow animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
                 <span className="block">Félicitations</span>
                 <span className="block bg-gradient-to-r from-primary to-success bg-clip-text text-transparent text-glow">{formData.prenom} !</span>
               </h2>
-              
-              <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style={{animationDelay: '0.6s'}}>
+
+              <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
                 Votre inscription au Salon National de l&apos;Emploi Jeune 2025 a été confirmée avec succès !
               </p>
             </div>
 
             {/* Récapitulatif d'inscription */}
-            <div className="glass rounded-2xl shadow-2xl overflow-hidden animate-fadeInUp" style={{animationDelay: '0.9s'}}>
+            <div className="glass rounded-2xl shadow-2xl overflow-hidden animate-fadeInUp" style={{ animationDelay: '0.9s' }}>
               <div className="bg-gradient-to-r from-primary via-success to-secondary text-white p-8">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
@@ -1526,7 +1554,7 @@ const RegistrationPlatform = () => {
                           <div className="flex justify-between items-center">
                             <span className="text-sm font-medium text-gray-600">Numéro d'inscription :</span>
                             <span className="font-bold text-primary text-lg">{registrationNumber}</span>
-                        </div>
+                          </div>
                         </div>
                         <div className="flex justify-between py-3 border-b border-gray-200">
                           <span className="text-sm font-medium text-gray-600">Nom complet :</span>
@@ -1549,13 +1577,13 @@ const RegistrationPlatform = () => {
                       </div>
                     </div>
 
-                    {formData.ateliersInterets.length > 0 && (
+                    {formData.panelsInterets.length > 0 && (
                       <div className="mb-6">
-                        <h4 className="text-sm font-semibold text-gray-600 mb-2">ATELIERS SÉLECTIONNÉS</h4>
+                        <h4 className="text-sm font-semibold text-gray-600 mb-2">PANELS SÉLECTIONNÉS</h4>
                         <div className="flex flex-wrap gap-2">
-                          {formData.ateliersInterets.map((atelier: string) => (
-                            <span key={atelier} className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
-                              {atelier}
+                          {formData.panelsInterets.map((panel: string) => (
+                            <span key={panel} className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
+                              {panel}
                             </span>
                           ))}
                         </div>
@@ -1652,7 +1680,7 @@ const RegistrationPlatform = () => {
                         nom: '', prenom: '', dateNaissance: '', sexe: '', telephone: '', email: '',
                         ville: '', region: '', niveauEtudes: '', domaineEtudes: '', situationActuelle: '',
                         experienceAnnees: '', secteursInterets: [], cvFile: null, ideeProjet: '',
-                        inscritACPE: '', numeroACPE: '', souhaitInscriptionACPE: '', ateliersInterets: [],
+                        inscritACPE: '', numeroACPE: '', souhaitInscriptionACPE: '', panelsInterets: [],
                         accepteConditions: false, accepteTraitementDonnees: false, accepteCommunications: false
                       });
                       setRegistrationNumber('');
@@ -1667,7 +1695,7 @@ const RegistrationPlatform = () => {
             </div>
 
             {/* Informations pratiques */}
-            <div className="mt-12 glass rounded-2xl p-8 animate-fadeInUp" style={{animationDelay: '1.2s'}}>
+            <div className="mt-12 glass rounded-2xl p-8 animate-fadeInUp" style={{ animationDelay: '1.2s' }}>
               <h4 className="font-bold text-2xl mb-8 flex items-center text-white">
                 <div className="w-10 h-10 bg-gradient-to-br from-primary to-success rounded-full flex items-center justify-center mr-4">
                   <Calendar className="w-5 h-5 text-white" />
@@ -1678,24 +1706,24 @@ const RegistrationPlatform = () => {
                 <div className="text-center group">
                   <div className="w-16 h-16 bg-gradient-to-br from-primary to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:animate-pulse-custom">
                     <Calendar className="w-8 h-8 text-white" />
-                </div>
+                  </div>
                   <p className="font-bold text-white mb-2">📅 Dates</p>
                   <p className="text-white/80 text-sm">28, 29 et 30 octobre 2025</p>
                 </div>
                 <div className="text-center group">
                   <div className="w-16 h-16 bg-gradient-to-br from-success to-green-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:animate-pulse-custom">
                     <span className="text-white text-xl">🕐</span>
-                </div>
+                  </div>
                   <p className="font-bold text-white mb-2">Horaires</p>
                   <p className="text-white/80 text-sm">8h00 - 18h00 chaque jour</p>
                 </div>
                 <div className="text-center group">
                   <div className="w-16 h-16 bg-gradient-to-br from-secondary to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:animate-pulse-custom">
                     <MapPin className="w-8 h-8 text-white" />
-              </div>
+                  </div>
                   <p className="font-bold text-white mb-2">📍 Lieu</p>
                   <p className="text-white/80 text-sm">Palais des Congrès, Brazzaville</p>
-            </div>
+                </div>
                 <div className="text-center group">
                   <div className="w-16 h-16 bg-gradient-to-br from-primary to-success rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:animate-pulse-custom">
                     <span className="text-white text-xl">🎫</span>

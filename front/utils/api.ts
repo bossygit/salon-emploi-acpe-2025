@@ -2,7 +2,7 @@
 // Configuration pour le backend déployé
 
 // URL du backend (Vercel)
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backend-1vzhrzgny-kitutupros-projects.vercel.app/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backend-mauve-phi-53.vercel.app/api';
 
 export interface ApiResponse<T = any> {
     success: boolean;
@@ -31,9 +31,8 @@ export interface RegistrationData {
     numeroACPE: string;
     souhaitInscriptionACPE: string;
     joursParticipation: string[];
-    horairePrefere: string;
     objectifPrincipal: string;
-    ateliersInterets: string[];
+    panelsInterets: string[];
     accepteConditions: string;
     accepteTraitementDonnees: string;
     accepteCommunications: string;
@@ -172,7 +171,6 @@ export const validateRegistrationData = (data: RegistrationData): { isValid: boo
     if (!data.email?.trim()) errors.push('L\'email est obligatoire');
     if (!data.inscritACPE) errors.push('Le statut ACPE est obligatoire');
     if (!data.situationActuelle) errors.push('La situation actuelle est obligatoire');
-    if (!data.horairePrefere) errors.push('L\'horaire préféré est obligatoire');
     if (!data.objectifPrincipal) errors.push('L\'objectif principal est obligatoire');
     if (!data.joursParticipation?.length) errors.push('Au moins un jour de participation est requis');
 

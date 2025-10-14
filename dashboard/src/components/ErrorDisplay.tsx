@@ -83,10 +83,10 @@ export default function ErrorDisplay({ error, onRetry }: ErrorDisplayProps) {
                         <div className="mt-6 p-4 bg-gray-50 rounded-lg">
                             <h4 className="font-semibold text-gray-900 mb-2">📋 Détails Techniques:</h4>
                             <dl className="text-sm space-y-1">
-                <dt className="font-medium text-gray-700">Backend URL:</dt>
-                <dd className="text-gray-600 font-mono text-xs break-all ml-4">
-                  {process.env.NEXT_PUBLIC_API_URL || 'https://backend-mauve-phi-53.vercel.app/api'}
-                </dd>
+                                <dt className="font-medium text-gray-700">Backend URL:</dt>
+                                <dd className="text-gray-600 font-mono text-xs break-all ml-4">
+                                    {process.env.NEXT_PUBLIC_API_URL || 'https://backend-mauve-phi-53.vercel.app/api'}
+                                </dd>
 
                                 <dt className="font-medium text-gray-700 mt-2">Type d'erreur:</dt>
                                 <dd className="text-gray-600 ml-4">
