@@ -24,6 +24,7 @@ const allowedOrigins = [
   'http://localhost:3002',  // Dashboard admin
   'http://127.0.0.1:3000',
   'http://127.0.0.1:3002',
+  'https://front-two-indol.vercel.app',  // Frontend Vercel (URL constante)
   'https://front-ak5owrg7r-kitutupros-projects.vercel.app',  // Frontend Vercel
   'https://front-emxqfbaxa-kitutupros-projects.vercel.app',  // Frontend Vercel (ancienne)
   'https://front-et42t0bcn-kitutupros-projects.vercel.app',  // Frontend Vercel (actuel)
