@@ -2,7 +2,7 @@
 // Configuration pour le backend déployé
 
 // URL du backend (Vercel)
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backend-rziq8kfym-kitutupros-projects.vercel.app/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backend-mauve-phi-53.vercel.app/api';
 
 export interface ApiResponse<T = any> {
     success: boolean;
