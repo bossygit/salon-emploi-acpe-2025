@@ -73,17 +73,29 @@ export const registrationAPI = {
                 formData.append('cv', cvFile);
             }
 
-            const response = await fetch(`${API_BASE_URL}/registration`, {
+            const requestUrl = `${API_BASE_URL}/registration`;
+            const response = await fetch(requestUrl, {
                 method: 'POST',
                 body: formData,
             });
 
-            const result = await response.json();
-
-            if (!response.ok) {
+            let result: any = null;
+            const contentType = response.headers.get('content-type') || '';
+            if (contentType.includes('application/json')) {
+                result = await response.json();
+            } else {
+                const text = await response.text();
                 return {
                     success: false,
-                    message: result.message || 'Erreur lors de l\'inscription'
+                    message: `Réponse non-JSON du serveur (${response.status} ${response.statusText}). URL: ${requestUrl}. Corps: ${text.substring(0, 200)}`
+                };
+            }
+
+            if (!response.ok) {
+                const details = typeof result === 'object' ? JSON.stringify(result) : String(result);
+                return {
+                    success: false,
+                    message: result.message || result.error || `Erreur ${response.status} ${response.statusText}. URL: ${requestUrl}. Détails: ${details}`
                 };
             }
 
@@ -92,11 +104,12 @@ export const registrationAPI = {
                 data: { numeroInscription: result.data.numeroInscription },
                 message: result.message || 'Inscription créée avec succès'
             };
-        } catch (error) {
+        } catch (error: any) {
             console.error('Registration API error:', error);
+            const reason = error?.message || 'Inconnue';
             return {
                 success: false,
-                message: 'Erreur de connexion au serveur. Veuillez réessayer.'
+                message: `Erreur de connexion au serveur. Raison: ${reason}. URL: ${API_BASE_URL}/registration`
             };
         }
     }

@@ -198,11 +198,14 @@ const RegistrationPlatform = () => {
         setRegistrationNumber(response.data.numeroInscription);
         setStep('confirmation');
       } else {
-        setSubmitError(response.message || 'Erreur lors de l\'inscription');
+        const generic = 'Une erreur est survenue lors de l\'inscription.';
+        const help = `\nConseils:\n- Vérifiez votre connexion Internet\n- Réessayez dans quelques instants\n- Si le problème persiste, contactez le support`;
+        setSubmitError((response.message || generic) + help);
       }
     } catch (error) {
       console.error('Erreur inscription:', error);
-      setSubmitError(handleApiError(error));
+      const msg = handleApiError(error);
+      setSubmitError(`${msg}\n(La requête n'a pas pu aboutir. Assurez-vous que le serveur est accessible.)`);
     } finally {
       setIsSubmitting(false);
     }
