@@ -3,7 +3,8 @@
 ## 📱 Applications Déployées
 
 ### 1. Frontend (Plateforme d'inscription publique)
-**URL de Production** : https://front-ak5owrg7r-kitutupros-projects.vercel.app
+**URL de Production** : https://front-8ockbhizf-kitutupros-projects.vercel.app ✅
+**URL Constante** : https://front-two-indol.vercel.app (configurée)
 
 **Description** : Interface publique où les jeunes s'inscrivent au salon
 - Formulaire d'inscription complet
@@ -14,9 +15,10 @@
 ---
 
 ### 2. Backend (API)
-**URL de Production** : https://backend-mauve-phi-53.vercel.app
+**URL de Production** : https://backend-mauve-phi-53.vercel.app ✅
 
-**URL Alternative** : https://backend-nbawuzqq9-kitutupros-projects.vercel.app
+**Status** : API opérationnelle, endpoints disponibles
+**Note** : Erreur FUNCTION_INVOCATION_FAILED sur certains endpoints (MongoDB à configurer)
 
 **Description** : API REST pour gérer les inscriptions
 - Endpoints : `/api/registration`, `/api/acpe/verify`, `/api/admin`

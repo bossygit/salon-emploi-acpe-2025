@@ -110,7 +110,7 @@ const registrationSchema = new mongoose.Schema({
     trim: true,
     default: '',
     validate: {
-      validator: function(v) {
+      validator: function (v) {
         // Si inscrit ACPE, le numéro est recommandé mais pas obligatoire
         // L'utilisateur pourra l'ajouter plus tard
         return true;
@@ -136,6 +136,7 @@ const registrationSchema = new mongoose.Schema({
     type: String,
     enum: ['emploi', 'auto-emploi', 'formation', 'les-trois']
   },
+  // Anciens ateliers (pour compatibilité)
   ateliersInterets: [{
     type: String,
     enum: [
@@ -146,6 +147,16 @@ const registrationSchema = new mongoose.Schema({
       'Marketing digital',
       'Gestion d\'entreprise',
       'Techniques de recherche d\'emploi'
+    ]
+  }],
+  // Nouveaux panels d'intérêts
+  panelsInterets: [{
+    type: String,
+    enum: [
+      'Panel 1 : Défis du marché de l\'emploi local',
+      'Panel 2 : L\'adéquation formation - emploi : rôle des universités et centres de formation',
+      'Panel 3 : Les secteurs qui recrutent : tendances et perspectives',
+      'Panel 4 : L\'entrepreneuriat comme voie d\'insertion professionnelle'
     ]
   }],
 
@@ -210,12 +221,12 @@ registrationSchema.index({ statut: 1 });
 registrationSchema.index({ createdAt: -1 });
 
 // Virtual pour le nom complet
-registrationSchema.virtual('nomComplet').get(function() {
+registrationSchema.virtual('nomComplet').get(function () {
   return `${this.prenom} ${this.nom}`;
 });
 
 // Virtual pour l'âge
-registrationSchema.virtual('age').get(function() {
+registrationSchema.virtual('age').get(function () {
   if (!this.dateNaissance) return null;
   const today = new Date();
   const birthDate = new Date(this.dateNaissance);
@@ -228,7 +239,7 @@ registrationSchema.virtual('age').get(function() {
 });
 
 // Middleware pre-save pour générer le numéro d'inscription
-registrationSchema.pre('save', async function(next) {
+registrationSchema.pre('save', async function (next) {
   if (this.isNew && !this.numeroInscription) {
     const count = await this.constructor.countDocuments();
     this.numeroInscription = `SALON2025-${String(count + 1).padStart(6, '0')}`;
@@ -238,7 +249,7 @@ registrationSchema.pre('save', async function(next) {
 });
 
 // Méthodes d'instance
-registrationSchema.methods.generateQRCode = function() {
+registrationSchema.methods.generateQRCode = function () {
   const qrData = {
     numeroInscription: this.numeroInscription,
     nom: this.nom,
@@ -250,7 +261,7 @@ registrationSchema.methods.generateQRCode = function() {
   return JSON.stringify(qrData);
 };
 
-registrationSchema.methods.toPublicJSON = function() {
+registrationSchema.methods.toPublicJSON = function () {
   const obj = this.toObject();
   delete obj.ipAddress;
   delete obj.userAgent;
@@ -258,19 +269,19 @@ registrationSchema.methods.toPublicJSON = function() {
 };
 
 // Méthodes statiques
-registrationSchema.statics.findByEmail = function(email) {
+registrationSchema.statics.findByEmail = function (email) {
   return this.findOne({ email: email.toLowerCase() });
 };
 
-registrationSchema.statics.findByPhone = function(phone) {
+registrationSchema.statics.findByPhone = function (phone) {
   return this.findOne({ telephone: phone });
 };
 
-registrationSchema.statics.findByRegistrationNumber = function(numero) {
+registrationSchema.statics.findByRegistrationNumber = function (numero) {
   return this.findOne({ numeroInscription: numero });
 };
 
-registrationSchema.statics.getStatistics = async function() {
+registrationSchema.statics.getStatistics = async function () {
   const stats = await this.aggregate([
     {
       $group: {
@@ -281,7 +292,7 @@ registrationSchema.statics.getStatistics = async function() {
       }
     }
   ]);
-  
+
   return stats[0] || { total: 0, confirmes: 0, annules: 0 };
 };
 

@@ -176,9 +176,22 @@ const getConfirmationEmailTemplate = (registration) => {
 
 // Envoyer l'email de confirmation
 const sendConfirmationEmail = async (registration) => {
+  // En développement, ne pas envoyer d'email réel
+  if (process.env.NODE_ENV === 'development') {
+    console.log('📧 Mode développement: Email de confirmation simulé pour', registration.email);
+    console.log('📧 Numéro d\'inscription:', registration.numeroInscription);
+    return { messageId: 'dev-mode-simulation' };
+  }
+
+  // En production, vérifier que les variables email sont configurées
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.log('⚠️ Variables email non configurées, envoi d\'email ignoré');
+    return { messageId: 'email-not-configured' };
+  }
+
   try {
     const transporter = createTransporter();
-    
+
     const mailOptions = {
       from: process.env.EMAIL_FROM || 'ACPE <noreply@acpe.cg>',
       to: registration.email,
@@ -207,7 +220,7 @@ const sendConfirmationEmail = async (registration) => {
 const sendReminderEmail = async (registration, daysBefore = 1) => {
   try {
     const transporter = createTransporter();
-    
+
     const mailOptions = {
       from: process.env.EMAIL_FROM || 'ACPE <noreply@acpe.cg>',
       to: registration.email,
@@ -237,7 +250,7 @@ const sendReminderEmail = async (registration, daysBefore = 1) => {
 const sendAssistanceEmail = async (assistanceData) => {
   try {
     const transporter = createTransporter();
-    
+
     const mailOptions = {
       from: process.env.EMAIL_FROM || 'ACPE <noreply@acpe.cg>',
       to: assistanceData.email,

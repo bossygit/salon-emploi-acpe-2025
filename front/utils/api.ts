@@ -1,8 +1,33 @@
 // API utilities pour la plateforme d'enregistrement
 // Configuration pour le backend déployé
 
-// URL du backend (Vercel)
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://backend-mauve-phi-53.vercel.app/api';
+// URL du backend - Détection automatique local/production
+const getApiBaseUrl = () => {
+    // Si variable d'environnement définie, l'utiliser
+    if (process.env.NEXT_PUBLIC_API_URL) {
+        return process.env.NEXT_PUBLIC_API_URL;
+    }
+
+    // Détection automatique basée sur l'environnement
+    if (typeof window !== 'undefined') {
+        // Côté client - vérifier si on est en local
+        const isLocal = window.location.hostname === 'localhost' ||
+            window.location.hostname === '127.0.0.1' ||
+            window.location.hostname.startsWith('192.168.');
+
+        if (isLocal) {
+            return 'http://localhost:3001/api';
+        }
+    }
+
+    // Par défaut : backend Vercel en production
+    return 'https://backend-mauve-phi-53.vercel.app/api';
+};
+
+const API_BASE_URL = getApiBaseUrl();
+
+// Log pour déboguer l'URL utilisée
+console.log('🔗 API_BASE_URL:', API_BASE_URL);
 
 export interface ApiResponse<T = any> {
     success: boolean;
