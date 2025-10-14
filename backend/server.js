@@ -28,8 +28,10 @@ const allowedOrigins = [
   'https://front-ak5owrg7r-kitutupros-projects.vercel.app',  // Frontend Vercel
   'https://front-emxqfbaxa-kitutupros-projects.vercel.app',  // Frontend Vercel (ancienne)
   'https://front-et42t0bcn-kitutupros-projects.vercel.app',  // Frontend Vercel (actuel)
+  'https://front-ob31bvq9t-kitutupros-projects.vercel.app',  // Frontend Vercel (dernier)
   'https://dashboard-csp53tk8u-kitutupros-projects.vercel.app',  // Dashboard Vercel
-  'https://dashboard-hpbypzu8m-kitutupros-projects.vercel.app'  // Dashboard Vercel (ancienne)
+  'https://dashboard-hpbypzu8m-kitutupros-projects.vercel.app',  // Dashboard Vercel (ancienne)
+  'https://dashboard-65db2xe66-kitutupros-projects.vercel.app'  // Dashboard Vercel (actuel)
 ];
 
 app.use(cors({
