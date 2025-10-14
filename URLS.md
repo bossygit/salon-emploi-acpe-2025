@@ -3,8 +3,9 @@
 ## 📱 Applications Déployées
 
 ### 1. Frontend (Plateforme d'inscription publique)
-**URL de Production** : https://front-8ockbhizf-kitutupros-projects.vercel.app ✅
+**URL de Production** : https://front-ob31bvq9t-kitutupros-projects.vercel.app ✅
 **URL Constante** : https://front-two-indol.vercel.app (configurée)
+**Détection automatique** : Local → http://localhost:3001/api | Production → https://backend-mauve-phi-53.vercel.app/api
 
 **Description** : Interface publique où les jeunes s'inscrivent au salon
 - Formulaire d'inscription complet
@@ -41,9 +42,8 @@ curl https://backend-mauve-phi-53.vercel.app/api/health
 ---
 
 ### 3. Dashboard (Administration)
-**URL de Production** : https://dashboard-44fjp7adv-kitutupros-projects.vercel.app
-
-**URL Alternative** : https://dashboard-7wvqgc1ha-kitutupros-projects.vercel.app
+**URL de Production** : https://dashboard-65db2xe66-kitutupros-projects.vercel.app ✅
+**Détection automatique** : Local → http://localhost:3001/api | Production → https://backend-mauve-phi-53.vercel.app/api
 
 **Description** : Interface d'administration pour gérer les inscriptions
 - Liste des inscriptions
