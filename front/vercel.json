@@ -1,13 +1,12 @@
 {
-    "buildCommand": "npm run build",
-    "outputDirectory": ".next",
-    "devCommand": "npm run dev",
-    "installCommand": "npm install",
-    "framework": "nextjs",
-    "regions": [
-        "cdg1"
-    ],
+  "version": 2,
+  "alias": ["front-two-indol.vercel.app"],
+  "env": {
+    "NEXT_PUBLIC_API_URL": "https://backend-qxrolr9no-kitutupros-projects.vercel.app/api"
+  },
+  "build": {
     "env": {
-        "NODE_ENV": "production"
+      "NEXT_PUBLIC_API_URL": "https://backend-qxrolr9no-kitutupros-projects.vercel.app/api"
     }
+  }
 }
