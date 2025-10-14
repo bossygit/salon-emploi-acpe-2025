@@ -26,6 +26,7 @@ const allowedOrigins = [
   'http://127.0.0.1:3002',
   'https://front-ak5owrg7r-kitutupros-projects.vercel.app',  // Frontend Vercel
   'https://front-emxqfbaxa-kitutupros-projects.vercel.app',  // Frontend Vercel (ancienne)
+  'https://front-et42t0bcn-kitutupros-projects.vercel.app',  // Frontend Vercel (actuel)
   'https://dashboard-csp53tk8u-kitutupros-projects.vercel.app',  // Dashboard Vercel
   'https://dashboard-hpbypzu8m-kitutupros-projects.vercel.app'  // Dashboard Vercel (ancienne)
 ];
