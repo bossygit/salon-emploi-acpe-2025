@@ -555,20 +555,7 @@ const RegistrationPlatform = () => {
                     </div>
                   </div>
 
-                  {/* Séparateur vertical */}
-                  <div className="hidden lg:block w-px h-32 bg-gray-300"></div>
 
-                  {/* Stat 4 */}
-                  <div className="flex-1 text-center group">
-                    <div className="w-28 h-28 bg-primary rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-6 transition-transform duration-500 shadow-2xl">
-                      <span className="text-2xl font-black text-white">24h</span>
-                    </div>
-                    <h4 className="text-2xl font-black text-gray-900 mb-4">Disponibilité</h4>
-                    <p className="text-gray-600 text-base leading-relaxed mb-6">Accès continu pendant 3 jours</p>
-                    <div className="w-full bg-gray-200 rounded-full h-4">
-                      <div className="bg-primary h-4 rounded-full transition-all duration-2000" style={{ width: '100%' }}></div>
-                    </div>
-                  </div>
                 </div>
 
                 {/* Call to action en bas */}
