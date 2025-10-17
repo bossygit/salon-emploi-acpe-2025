@@ -102,9 +102,9 @@ const RegistrationPlatform = () => {
   ];
 
   const joursSalon = [
-    '2025-10-28',
-    '2025-10-29',
-    '2025-10-30'
+    '2025-11-13',
+    '2025-11-14',
+    '2025-11-15'
   ];
 
   // Horaires supprimés (champ retiré du formulaire)
@@ -976,7 +976,7 @@ const RegistrationPlatform = () => {
                         <label key={secteur} className="flex items-center p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
                           <input
                             type="checkbox"
-                            checked={formData.secteursInterets.includes(secteur)}
+                            checked={formData.secteursInterets?.includes(secteur) || false}
                             onChange={() => handleMultiSelect('secteursInterets', secteur)}
                             className="mr-2"
                           />
@@ -1214,7 +1214,7 @@ const RegistrationPlatform = () => {
                         <label key={jour} className="flex items-center p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
                           <input
                             type="checkbox"
-                            checked={formData.joursParticipation.includes(jour)}
+                            checked={formData.joursParticipation?.includes(jour) || false}
                             onChange={() => handleMultiSelect('joursParticipation', jour)}
                             className="mr-2"
                           />
@@ -1303,7 +1303,7 @@ const RegistrationPlatform = () => {
                           <label className="inline-flex items-center">
                             <input
                               type="checkbox"
-                              checked={formData.panelsInterets.includes(panel.titre)}
+                              checked={formData.panelsInterets?.includes(panel.titre) || false}
                               onChange={() => handleMultiSelect('panelsInterets', panel.titre)}
                               className="mr-2"
                             />
