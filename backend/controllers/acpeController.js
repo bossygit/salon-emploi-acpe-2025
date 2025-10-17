@@ -11,7 +11,7 @@ const verifyACPE = async (req, res) => {
 
     // Vérifier si le numéro ACPE est déjà utilisé
     const existingRegistration = await Registration.findOne({ numeroACPE });
-    
+
     if (existingRegistration) {
       return res.json({
         success: true,
@@ -109,7 +109,7 @@ const getAssistanceInfo = async (req, res) => {
       benefits: [
         'Accès aux offres d\'emploi exclusives',
         'Formations professionnelles gratuites',
-        'Accompagnement dans la recherche d\'emploi',
+        'Orientation dans la recherche d\'emploi',
         'Informations sur les programmes d\'auto-emploi',
         'Réseau professionnel étendu'
       ]
@@ -233,10 +233,10 @@ const requestAssistance = async (req, res) => {
 async function simulateACPEVerification(numeroACPE) {
   // Simulation d'une vérification ACPE
   // En production, ceci devrait appeler l'API ACPE réelle
-  
+
   // Format simulé: ACPE-YYYY-NNNNNN
   const acpePattern = /^ACPE-\d{4}-\d{6}$/;
-  
+
   if (!acpePattern.test(numeroACPE)) {
     return false;
   }
