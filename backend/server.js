@@ -14,6 +14,9 @@ const acpeRoutes = require('./routes/acpe');
 
 const app = express();
 
+// Configuration pour Vercel (trust proxy)
+app.set('trust proxy', 1);
+
 // Configuration de sécurité
 app.use(helmet());
 app.use(compression());
