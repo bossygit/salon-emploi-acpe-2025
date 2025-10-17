@@ -341,17 +341,17 @@ const RegistrationPlatform = () => {
             </div>
 
             {/* Cards avec animations - Design innovant */}
-            <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <div className="grid md:grid-cols-3 gap-8 mb-16 items-stretch">
               {/* Card 1: Entreprises */}
-              <div className="group relative animate-fadeInUp" style={{ animationDelay: '0.9s' }}>
-                <div className="relative overflow-hidden rounded-3xl bg-white/95 backdrop-blur-sm border border-primary/20 hover:border-primary/40 transition-all duration-500 hover:scale-105 shadow-2xl">
+              <div className="group relative animate-fadeInUp flex flex-col" style={{ animationDelay: '0.9s' }}>
+                <div className="relative overflow-hidden rounded-3xl bg-white/95 backdrop-blur-sm border border-primary/20 hover:border-primary/40 transition-all duration-500 hover:scale-105 shadow-2xl flex flex-col h-full">
                   {/* Background pattern */}
                   <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-4 right-4 w-32 h-32 bg-primary rounded-full blur-3xl"></div>
                     <div className="absolute bottom-4 left-4 w-24 h-24 bg-secondary rounded-full blur-2xl"></div>
                   </div>
 
-                  <div className="relative p-8">
+                  <div className="relative p-8 flex flex-col flex-grow">
                     {/* Header avec icône flottante */}
                     <div className="flex items-start justify-between mb-6">
                       <div className="relative">
@@ -384,7 +384,7 @@ const RegistrationPlatform = () => {
                         e.preventDefault();
                         alert('Liste des entreprises bientôt disponible !');
                       }}
-                      className="w-full bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white py-3 px-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2"
+                      className="w-full bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white py-3 px-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 mt-auto"
                     >
                       <span>Découvrir les entreprises</span>
                       <ExternalLink className="w-4 h-4" />
@@ -394,15 +394,15 @@ const RegistrationPlatform = () => {
               </div>
 
               {/* Card 2: Opportunités */}
-              <div className="group relative animate-fadeInUp" style={{ animationDelay: '1.2s' }}>
-                <div className="relative overflow-hidden rounded-3xl bg-white/95 backdrop-blur-sm border border-success/20 hover:border-success/40 transition-all duration-500 hover:scale-105 shadow-2xl">
+              <div className="group relative animate-fadeInUp flex flex-col" style={{ animationDelay: '1.2s' }}>
+                <div className="relative overflow-hidden rounded-3xl bg-white/95 backdrop-blur-sm border border-success/20 hover:border-success/40 transition-all duration-500 hover:scale-105 shadow-2xl flex flex-col h-full">
                   {/* Background pattern */}
                   <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-4 right-4 w-32 h-32 bg-success rounded-full blur-3xl"></div>
                     <div className="absolute bottom-4 left-4 w-24 h-24 bg-primary rounded-full blur-2xl"></div>
                   </div>
 
-                  <div className="relative p-8">
+                  <div className="relative p-8 flex flex-col flex-grow">
                     {/* Header avec icône flottante */}
                     <div className="flex items-start justify-between mb-6">
                       <div className="relative">
@@ -431,7 +431,7 @@ const RegistrationPlatform = () => {
                     </div>
 
                     {/* Action button */}
-                    <button className="w-full bg-gradient-to-r from-success to-green-600 hover:from-green-600 hover:to-success text-white py-3 px-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2">
+                    <button className="w-full bg-gradient-to-r from-success to-green-600 hover:from-green-600 hover:to-success text-white py-3 px-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 mt-auto">
                       <span>Explorer les offres</span>
                       <Briefcase className="w-4 h-4" />
                     </button>
@@ -440,15 +440,15 @@ const RegistrationPlatform = () => {
               </div>
 
               {/* Card 3: Programme */}
-              <div className="group relative animate-fadeInUp" style={{ animationDelay: '1.5s' }}>
-                <div className="relative overflow-hidden rounded-3xl bg-white/95 backdrop-blur-sm border border-secondary/20 hover:border-secondary/40 transition-all duration-500 hover:scale-105 shadow-2xl">
+              <div className="group relative animate-fadeInUp flex flex-col" style={{ animationDelay: '1.5s' }}>
+                <div className="relative overflow-hidden rounded-3xl bg-white/95 backdrop-blur-sm border border-secondary/20 hover:border-secondary/40 transition-all duration-500 hover:scale-105 shadow-2xl flex flex-col h-full">
                   {/* Background pattern */}
                   <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-4 right-4 w-32 h-32 bg-secondary rounded-full blur-3xl"></div>
                     <div className="absolute bottom-4 left-4 w-24 h-24 bg-success rounded-full blur-2xl"></div>
                   </div>
 
-                  <div className="relative p-8">
+                  <div className="relative p-8 flex flex-col flex-grow">
                     {/* Header avec icône flottante */}
                     <div className="flex items-start justify-between mb-6">
                       <div className="relative">
@@ -486,7 +486,7 @@ const RegistrationPlatform = () => {
                     </div>
 
                     {/* Action button */}
-                    <button className="w-full bg-gradient-to-r from-secondary to-red-600 hover:from-red-600 hover:to-secondary text-white py-3 px-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2">
+                    <button className="w-full bg-gradient-to-r from-secondary to-red-600 hover:from-red-600 hover:to-secondary text-white py-3 px-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 mt-auto">
                       <span>Voir le programme</span>
                       <Calendar className="w-4 h-4" />
                     </button>
