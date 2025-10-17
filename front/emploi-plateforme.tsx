@@ -660,7 +660,7 @@ const RegistrationPlatform = () => {
                     <h1 className="text-4xl font-black text-gray-900">Inscription</h1>
                     <div className="w-2 h-2 bg-primary rounded-full animate-pulse-custom"></div>
                   </div>
-                  <p className="text-xl text-gray-700 mb-4">Salon National de l'Emploi Jeune 2025</p>
+                  <p className="text-xl text-gray-700 mb-4">Salon de l'Emploi 2025</p>
                   <div className="flex items-center space-x-6">
                     <div className="flex items-center space-x-2">
                       <div className="w-3 h-3 bg-success rounded-full"></div>
@@ -1155,7 +1155,7 @@ const RegistrationPlatform = () => {
                         placeholder="Ex: ACPE2024XXXXX"
                       />
                       <p className="text-xs text-gray-600 mt-2">
-                        Vous pouvez ajouter votre numéro ACPE si vous le connaissez. Ce champ est optionnel.
+                        Vous pouvez ajouter votre numéro de récépissé d'inscription à l'ACPE si vous le connaissez. Ce champ est optionnel.
                       </p>
                     </div>
                   )}
@@ -1176,17 +1176,6 @@ const RegistrationPlatform = () => {
                             className="mr-2"
                           />
                           <span className="text-sm text-gray-700">Oui, je souhaite m'inscrire</span>
-                        </label>
-                        <label className="flex items-center">
-                          <input
-                            type="radio"
-                            name="souhaitInscriptionACPE"
-                            value="non"
-                            checked={formData.souhaitInscriptionACPE === 'non'}
-                            onChange={(e) => handleInputChange('souhaitInscriptionACPE', e.target.value)}
-                            className="mr-2"
-                          />
-                          <span className="text-sm text-gray-700">Non, pas pour le moment</span>
                         </label>
                       </div>
                       {formData.souhaitInscriptionACPE === 'oui' && (
