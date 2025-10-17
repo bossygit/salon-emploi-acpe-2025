@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Users, Calendar, MapPin, Briefcase, CheckCircle, AlertCircle, Download, QrCode, Mail, Phone, ExternalLink, Upload, Lightbulb, MessageCircle, Loader2 } from 'lucide-react';
 import Image from 'next/image';
-import { registrationAPI, acpeAPI, handleApiError, validateRegistrationData } from './utils/api';
+import { registrationAPI, handleApiError, validateRegistrationData } from './utils/api';
 
 const RegistrationPlatform = () => {
   const [step, setStep] = useState('home');
@@ -36,8 +36,8 @@ const RegistrationPlatform = () => {
   const [errors, setErrors] = useState<any>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
-  const [acpeVerification, setAcpeVerification] = useState<any>(null);
-  const [isVerifyingACPE, setIsVerifyingACPE] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  // États de vérification ACPE supprimés (fonctionnalité désactivée)
 
   const secteurs = [
     'Agriculture/Agroalimentaire',
@@ -135,13 +135,29 @@ const RegistrationPlatform = () => {
 
   const validateForm = () => {
     const newErrors: any = {};
+    const errorMessages: string[] = [];
 
     // Champs obligatoires de base
-    if (!formData.nom) newErrors.nom = 'Le nom est obligatoire';
-    if (!formData.prenom) newErrors.prenom = 'Le prénom est obligatoire';
-    if (!formData.telephone) newErrors.telephone = 'Le téléphone est obligatoire';
-    if (!formData.email) newErrors.email = 'L\'email est obligatoire';
-    if (!formData.inscritACPE) newErrors.inscritACPE = 'Cette information est obligatoire';
+    if (!formData.nom) {
+      newErrors.nom = 'Le nom est obligatoire';
+      errorMessages.push('Le nom est obligatoire');
+    }
+    if (!formData.prenom) {
+      newErrors.prenom = 'Le prénom est obligatoire';
+      errorMessages.push('Le prénom est obligatoire');
+    }
+    if (!formData.telephone) {
+      newErrors.telephone = 'Le téléphone est obligatoire';
+      errorMessages.push('Le téléphone est obligatoire');
+    }
+    if (!formData.email) {
+      newErrors.email = 'L\'email est obligatoire';
+      errorMessages.push('L\'email est obligatoire');
+    }
+    if (!formData.inscritACPE) {
+      newErrors.inscritACPE = 'Cette information est obligatoire';
+      errorMessages.push('Le statut d\'inscription ACPE est obligatoire');
+    }
 
     // ACPE (numéro optionnel maintenant)
     if (formData.inscritACPE === 'oui' && !formData.numeroACPE) {
@@ -152,24 +168,30 @@ const RegistrationPlatform = () => {
     // NOUVEAUX CHAMPS OBLIGATOIRES
     if (!formData.situationActuelle || formData.situationActuelle === '') {
       newErrors.situationActuelle = 'La situation actuelle est obligatoire';
+      errorMessages.push('La situation actuelle est obligatoire');
     }
     // Horaire préféré supprimé
     if (!formData.objectifPrincipal || formData.objectifPrincipal === '') {
       newErrors.objectifPrincipal = 'L\'objectif principal est obligatoire';
+      errorMessages.push('L\'objectif principal est obligatoire');
     }
     if (!formData.joursParticipation || formData.joursParticipation.length === 0) {
       newErrors.joursParticipation = 'Veuillez sélectionner au moins un jour de participation';
+      errorMessages.push('Au moins un jour de participation doit être sélectionné');
     }
 
     // Validation des acceptations
     if (!formData.accepteConditions) {
       newErrors.accepteConditions = 'Vous devez accepter les conditions d\'utilisation';
+      errorMessages.push('Vous devez accepter les conditions d\'utilisation');
     }
     if (!formData.accepteTraitementDonnees) {
       newErrors.accepteTraitementDonnees = 'Vous devez accepter le traitement des données personnelles';
+      errorMessages.push('Vous devez accepter le traitement des données personnelles');
     }
 
     setErrors(newErrors);
+    setValidationErrors(errorMessages);
     return Object.keys(newErrors).length === 0;
   };
 
@@ -181,6 +203,7 @@ const RegistrationPlatform = () => {
 
     setIsSubmitting(true);
     setSubmitError('');
+    setValidationErrors([]);
 
     try {
       // Préparer les données pour l'API
@@ -211,21 +234,7 @@ const RegistrationPlatform = () => {
     }
   };
 
-  const handleACPEVerification = async () => {
-    if (!formData.numeroACPE?.trim()) return;
-
-    setIsVerifyingACPE(true);
-    try {
-      const response = await acpeAPI.verify(formData.numeroACPE, formData.email);
-      if (response.success) {
-        setAcpeVerification(response.data);
-      }
-    } catch (error) {
-      console.error('Erreur vérification ACPE:', error);
-    } finally {
-      setIsVerifyingACPE(false);
-    }
-  };
+  // Fonction de vérification ACPE supprimée (fonctionnalité désactivée)
 
   if (step === 'home') {
     return (
@@ -694,6 +703,26 @@ const RegistrationPlatform = () => {
 
             <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-10 md:p-16 animate-fadeInUp">
 
+              {/* Affichage des erreurs de validation */}
+              {validationErrors.length > 0 && (
+                <div className="mb-8 bg-red-50 border-2 border-red-500 text-red-800 px-6 py-5 rounded-2xl shadow-lg animate-shake">
+                  <div className="flex items-start space-x-3">
+                    <AlertCircle className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" />
+                    <div className="flex-1">
+                      <h4 className="font-bold text-lg text-red-800 mb-3">⚠️ Veuillez corriger les erreurs suivantes :</h4>
+                      <ul className="list-disc list-inside space-y-2">
+                        {validationErrors.map((error, index) => (
+                          <li key={index} className="text-sm font-medium">{error}</li>
+                        ))}
+                      </ul>
+                      <p className="text-sm mt-4 text-red-700 font-semibold">
+                        👇 Faites défiler vers le bas pour remplir tous les champs obligatoires marqués d'un astérisque (*).
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Section 1: Informations personnelles */}
               <div className="mb-16">
                 <div className="flex items-center mb-12">
@@ -1100,8 +1129,8 @@ const RegistrationPlatform = () => {
                         <input
                           type="radio"
                           name="inscritACPE"
-                          value="ne_sais_pas"
-                          checked={formData.inscritACPE === 'ne_sais_pas'}
+                          value="je-ne-sais-pas"
+                          checked={formData.inscritACPE === 'je-ne-sais-pas'}
                           onChange={(e) => handleInputChange('inscritACPE', e.target.value)}
                           className="mr-3"
                         />
@@ -1117,70 +1146,18 @@ const RegistrationPlatform = () => {
                   {formData.inscritACPE === 'oui' && (
                     <div className="bg-green-50 p-4 rounded-lg">
                       <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        Numéro d'inscription ACPE <span className="text-red-500">*</span>
+                        Numéro d'inscription ACPE <span className="text-gray-400">(optionnel)</span>
                       </label>
-                      <div className="flex gap-2">
-                        <input
-                          type="text"
-                          value={formData.numeroACPE}
-                          onChange={(e) => handleInputChange('numeroACPE', e.target.value)}
-                          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800"
-                          placeholder="Ex: ACPE2024XXXXX"
-                        />
-                        <button
-                          type="button"
-                          onClick={handleACPEVerification}
-                          disabled={!formData.numeroACPE?.trim() || isVerifyingACPE}
-                          className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
-                        >
-                          {isVerifyingACPE ? (
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                          ) : (
-                            <CheckCircle className="w-4 h-4" />
-                          )}
-                          <span>Vérifier</span>
-                        </button>
-                      </div>
-                      {errors.numeroACPE && <p className="text-red-500 text-xs mt-1">{errors.numeroACPE}</p>}
+                      <input
+                        type="text"
+                        value={formData.numeroACPE}
+                        onChange={(e) => handleInputChange('numeroACPE', e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800"
+                        placeholder="Ex: ACPE2024XXXXX"
+                      />
                       <p className="text-xs text-gray-600 mt-2">
-                        Vous trouverez ce numéro sur votre espace personnel ACPE
+                        Vous pouvez ajouter votre numéro ACPE si vous le connaissez. Ce champ est optionnel.
                       </p>
-
-                      {/* Affichage du résultat de la vérification ACPE */}
-                      {acpeVerification && (
-                        <div className={`mt-3 p-3 rounded-lg ${acpeVerification.valid
-                          ? acpeVerification.alreadyUsed
-                            ? 'bg-yellow-100 border border-yellow-300'
-                            : 'bg-green-100 border border-green-300'
-                          : 'bg-red-100 border border-red-300'
-                          }`}>
-                          <div className="flex items-center space-x-2">
-                            {acpeVerification.valid ? (
-                              acpeVerification.alreadyUsed ? (
-                                <AlertCircle className="w-5 h-5 text-yellow-600" />
-                              ) : (
-                                <CheckCircle className="w-5 h-5 text-green-600" />
-                              )
-                            ) : (
-                              <AlertCircle className="w-5 h-5 text-red-600" />
-                            )}
-                            <p className={`text-sm font-medium ${acpeVerification.valid
-                              ? acpeVerification.alreadyUsed
-                                ? 'text-yellow-800'
-                                : 'text-green-800'
-                              : 'text-red-800'
-                              }`}>
-                              {acpeVerification.message}
-                            </p>
-                          </div>
-                          {acpeVerification.alreadyUsed && acpeVerification.data?.usedBy && (
-                            <div className="mt-2 text-xs text-yellow-700">
-                              <p>Utilisé par: {acpeVerification.data.usedBy.prenom} {acpeVerification.data.usedBy.nom}</p>
-                              <p>Email: {acpeVerification.data.usedBy.email}</p>
-                            </div>
-                          )}
-                        </div>
-                      )}
                     </div>
                   )}
 

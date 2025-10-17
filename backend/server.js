@@ -168,11 +168,13 @@ const PORT = process.env.PORT || 5000;
 const startServer = async () => {
   await connectDB();
 
-  app.listen(PORT, '127.0.0.1', () => {
+  app.listen(PORT, () => {
     console.log(`🚀 Serveur démarré sur le port ${PORT}`);
-    console.log(`📱 API disponible sur: http://127.0.0.1:${PORT}`);
-    console.log(`📱 API disponible sur: http://localhost:${PORT}`);
+    console.log(`📱 API disponible sur: http://127.0.0.1:${PORT}/api`);
+    console.log(`📱 API disponible sur: http://localhost:${PORT}/api`);
     console.log(`🌍 Environnement: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`🔒 CORS activé pour: http://localhost:3000, http://localhost:3002`);
+    console.log(`📊 Test API: http://localhost:${PORT}/api/health`);
   });
 };
 

@@ -82,10 +82,16 @@ export const registrationAPI = {
         try {
             const formData = new FormData();
 
+            // Nettoyer le numéro de téléphone (supprimer espaces et caractères spéciaux sauf +)
+            const cleanPhone = data.telephone.replace(/\s/g, '').replace(/[^0-9+]/g, '');
+
             // Ajouter toutes les données du formulaire
             Object.entries(data).forEach(([key, value]) => {
                 if (key !== 'cvFile' && value !== null && value !== undefined) {
-                    if (Array.isArray(value)) {
+                    // Utiliser le téléphone nettoyé
+                    if (key === 'telephone') {
+                        formData.append(key, cleanPhone);
+                    } else if (Array.isArray(value)) {
                         formData.append(key, JSON.stringify(value));
                     } else {
                         formData.append(key, value.toString());
@@ -95,7 +101,7 @@ export const registrationAPI = {
 
             // Ajouter le fichier CV s'il existe
             if (cvFile) {
-                formData.append('cv', cvFile);
+                formData.append('cvFile', cvFile);
             }
 
             const requestUrl = `${API_BASE_URL}/registration`;
@@ -117,6 +123,26 @@ export const registrationAPI = {
             }
 
             if (!response.ok) {
+                // Si le backend renvoie des erreurs de validation détaillées
+                if (result.errors && Array.isArray(result.errors)) {
+                    const errorMessages = result.errors.map((err: any) => {
+                        let msg = `${err.param || err.path || 'Champ inconnu'}: ${err.msg}`;
+                        // Ajouter la valeur reçue si disponible
+                        if (err.receivedValue !== undefined && err.receivedValue !== null) {
+                            const displayValue = typeof err.receivedValue === 'string'
+                                ? `"${err.receivedValue}"`
+                                : JSON.stringify(err.receivedValue);
+                            msg += `\n  → Valeur reçue: ${displayValue}`;
+                        } else {
+                            msg += `\n  → Valeur reçue: (vide ou non définie)`;
+                        }
+                        return msg;
+                    }).join('\n\n• ');
+                    return {
+                        success: false,
+                        message: `${result.message || 'Erreur de validation'}\n\nDétails:\n• ${errorMessages}`
+                    };
+                }
                 const details = typeof result === 'object' ? JSON.stringify(result) : String(result);
                 return {
                     success: false,

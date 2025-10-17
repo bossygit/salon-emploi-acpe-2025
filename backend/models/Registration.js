@@ -17,12 +17,12 @@ const registrationSchema = new mongoose.Schema({
   },
   dateNaissance: {
     type: Date,
-    required: [true, 'La date de naissance est obligatoire']
+    required: false  // Optionnel
   },
   sexe: {
     type: String,
     enum: ['M', 'F'],
-    required: [true, 'Le sexe est obligatoire']
+    required: false  // Optionnel
   },
   telephone: {
     type: String,
@@ -120,7 +120,9 @@ const registrationSchema = new mongoose.Schema({
   },
   souhaitInscriptionACPE: {
     type: String,
-    enum: ['oui', 'non', 'peut-etre']
+    enum: ['oui', 'non', 'peut-etre'],
+    required: false,
+    default: null
   },
 
   // Préférences salon
