@@ -15,15 +15,19 @@ const {
 const router = express.Router();
 
 // Configuration Multer pour l'upload de fichiers
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/cv/');
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, 'cv-' + uniqueSuffix + '-' + file.originalname);
-  }
-});
+// En production (Vercel), utiliser le stockage en mémoire
+// En développement, utiliser le stockage sur disque
+const storage = process.env.NODE_ENV === 'production'
+  ? multer.memoryStorage()
+  : multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/cv/');
+    },
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+      cb(null, 'cv-' + uniqueSuffix + '-' + file.originalname);
+    }
+  });
 
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === 'application/pdf' ||

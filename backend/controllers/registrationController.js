@@ -9,10 +9,17 @@ const path = require('path');
 // @access  Public
 const createRegistration = async (req, res) => {
   try {
-    // S'assurer que le dossier uploads/cv existe
-    const uploadDir = path.join(__dirname, '../uploads/cv');
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
+    // S'assurer que le dossier uploads/cv existe (uniquement en local)
+    if (process.env.NODE_ENV !== 'production') {
+      const uploadDir = path.join(__dirname, '../uploads/cv');
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      }
+    }
+
+    // Gérer l'upload de fichier (uniquement en développement)
+    if (process.env.NODE_ENV === 'production' && req.file) {
+      console.log('⚠️ Upload de fichier ignoré en production:', req.file.originalname);
     }
 
     // Nettoyer et valider les données
@@ -57,11 +64,11 @@ const createRegistration = async (req, res) => {
     let numeroInscription;
     let isUnique = false;
     let attempts = 0;
-    
+
     while (!isUnique && attempts < 10) {
       const count = await Registration.countDocuments();
       numeroInscription = `SALON2025-${String(count + 1 + attempts).padStart(6, '0')}`;
-      
+
       // Vérifier si ce numéro existe déjà
       const existing = await Registration.findOne({ numeroInscription });
       if (!existing) {
@@ -69,12 +76,12 @@ const createRegistration = async (req, res) => {
       }
       attempts++;
     }
-    
+
     if (!isUnique) {
       // Fallback avec timestamp si on n'arrive pas à générer un numéro unique
       numeroInscription = `SALON2025-${Date.now().toString().slice(-6)}`;
     }
-    
+
     sanitizedData.numeroInscription = numeroInscription;
 
     // Créer l'inscription
@@ -138,7 +145,7 @@ const createRegistration = async (req, res) => {
 const getRegistrationByNumber = async (req, res) => {
   try {
     const registration = await Registration.findByRegistrationNumber(req.params.numero);
-    
+
     if (!registration) {
       return res.status(404).json({
         success: false,
@@ -166,7 +173,7 @@ const getRegistrationByNumber = async (req, res) => {
 const checkEmail = async (req, res) => {
   try {
     const registration = await Registration.findByEmail(req.params.email);
-    
+
     res.json({
       success: true,
       exists: !!registration,
@@ -193,7 +200,7 @@ const checkEmail = async (req, res) => {
 const checkPhone = async (req, res) => {
   try {
     const registration = await Registration.findByPhone(req.params.phone);
-    
+
     res.json({
       success: true,
       exists: !!registration,
@@ -220,7 +227,7 @@ const checkPhone = async (req, res) => {
 const getPublicStats = async (req, res) => {
   try {
     const stats = await Registration.getStatistics();
-    
+
     res.json({
       success: true,
       data: {
@@ -286,7 +293,7 @@ const verifyQRCode = async (req, res) => {
     }
 
     // Vérifier la cohérence des données
-    const isDataConsistent = 
+    const isDataConsistent =
       registration.nom === parsedData.nom &&
       registration.prenom === parsedData.prenom &&
       registration.email === parsedData.email &&
@@ -369,7 +376,7 @@ const scanQRCode = async (req, res) => {
     // Pour l'instant, on simule la lecture du QR code
     // En production, vous devriez utiliser une librairie comme 'qr-scanner' ou 'jsqr'
     // Ici on assume que le frontend a déjà décodé le QR code
-    
+
     res.json({
       success: false,
       message: 'Fonctionnalité de scan QR code à implémenter',
@@ -393,14 +400,14 @@ const scanQRCode = async (req, res) => {
 const getAllRegistrations = async (req, res) => {
   try {
     const { page = 1, limit = 50, statut, search } = req.query;
-    
+
     // Construire le filtre
     let filter = {};
-    
+
     if (statut && statut !== 'all') {
       filter.statut = statut;
     }
-    
+
     if (search) {
       filter.$or = [
         { nom: { $regex: search, $options: 'i' } },
@@ -412,7 +419,7 @@ const getAllRegistrations = async (req, res) => {
 
     // Calculer la pagination
     const skip = (parseInt(page) - 1) * parseInt(limit);
-    
+
     // Récupérer les inscriptions
     const registrations = await Registration.find(filter)
       .select('-ipAddress -userAgent -qrCode.data') // Exclure les données sensibles
