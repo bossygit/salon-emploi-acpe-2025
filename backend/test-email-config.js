@@ -58,7 +58,7 @@ async function testEmailConfig() {
 
         // Envoyer un email de test
         console.log('📤 Envoi d\'un email de test...');
-        
+
         const testEmail = {
             from: process.env.EMAIL_FROM,
             to: process.env.EMAIL_USER, // S'envoyer à soi-même
@@ -70,7 +70,7 @@ async function testEmailConfig() {
                 <p><strong>Port:</strong> ${process.env.EMAIL_PORT}</p>
                 <p><strong>Date:</strong> ${new Date().toLocaleString('fr-FR')}</p>
                 <hr>
-                <p><em>Salon National de l'Emploi Jeune 2025 - ACPE</em></p>
+                <p><em>Salon de l'Emploi 2025 - ACPE</em></p>
             `
         };
 

@@ -1,7 +1,7 @@
 {
     "name": "plateforme-enregistrement-salon-emploi",
     "version": "1.0.0",
-    "description": "Plateforme d'enregistrement pour le Salon National de l'Emploi Jeune 2025 - République du Congo",
+    "description": "Plateforme d'enregistrement pour le Salon  de l'Emploi 2025 - République du Congo",
     "private": true,
     "scripts": {
         "dev": "next dev",

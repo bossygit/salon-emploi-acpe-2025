@@ -69,7 +69,7 @@ export default function Dashboard() {
                 <div>
                   <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-2">Tableau de bord</h1>
                   <p className="text-lg text-gray-600 font-medium">
-                    Vue d'ensemble du Salon National de l'Emploi Jeune 2025
+                    Vue d'ensemble du Salon de l'Emploi 2025
                   </p>
                 </div>
               </div>

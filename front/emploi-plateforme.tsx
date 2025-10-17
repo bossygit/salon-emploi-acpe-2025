@@ -1475,7 +1475,7 @@ const RegistrationPlatform = () => {
               </h2>
 
               <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
-                Votre inscription au Salon National de l&apos;Emploi Jeune 2025 a été confirmée avec succès !
+                Votre inscription au Salon  de l&apos;Emploi 2025 a été confirmée avec succès !
               </p>
             </div>
 
@@ -1663,7 +1663,7 @@ const RegistrationPlatform = () => {
                     <Calendar className="w-8 h-8 text-white" />
                   </div>
                   <p className="font-bold text-white mb-2">📅 Dates</p>
-                  <p className="text-white/80 text-sm">28, 29 et 30 octobre 2025</p>
+                  <p className="text-white/80 text-sm">13, 14 et 15 Novembre 2025</p>
                 </div>
                 <div className="text-center group">
                   <div className="w-16 h-16 bg-gradient-to-br from-success to-green-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:animate-pulse-custom">

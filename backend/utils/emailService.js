@@ -25,7 +25,7 @@ const getConfirmationEmailTemplate = (registration) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Confirmation d'inscription - Salon National de l'Emploi Jeune 2025</title>
+        <title>Confirmation d'inscription - Salon de l'Emploi 2025</title>
         <style>
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -106,13 +106,13 @@ const getConfirmationEmailTemplate = (registration) => {
         <div class="container">
             <div class="header">
                 <div class="logo">🇨🇬 ACPE</div>
-                <h1>Salon National de l'Emploi Jeune 2025</h1>
+                <h1>Salon de l'Emploi 2025</h1>
                 <p>Confirmation d'inscription</p>
             </div>
 
             <h2>Félicitations ${registration.prenom} ${registration.nom} !</h2>
             
-            <p>Votre inscription au <strong>Salon National de l'Emploi Jeune 2025</strong> a été confirmée avec succès.</p>
+            <p>Votre inscription au <strong>Salon de l'Emploi 2025</strong> a été confirmée avec succès.</p>
 
             <div class="badge">
                 <div class="info-title">Votre Badge d'Entrée</div>
@@ -226,9 +226,9 @@ const sendReminderEmail = async (registration, daysBefore = 1) => {
       to: registration.email,
       subject: `Rappel - Salon Emploi 2025 dans ${daysBefore} jour(s)`,
       html: `
-        <h2>Rappel - Salon National de l'Emploi Jeune 2025</h2>
+        <h2>Rappel - Salon de l'Emploi 2025</h2>
         <p>Bonjour ${registration.prenom},</p>
-        <p>Le Salon National de l'Emploi Jeune 2025 commence dans ${daysBefore} jour(s) !</p>
+        <p>Le Salon de l'Emploi 2025 commence dans ${daysBefore} jour(s) !</p>
         <p><strong>Votre numéro d'inscription :</strong> ${registration.numeroInscription}</p>
         <p>N'oubliez pas d'apporter votre badge d'entrée.</p>
         <p>À bientôt !</p>

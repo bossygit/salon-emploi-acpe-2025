@@ -1,7 +1,7 @@
 {
   "name": "salon-emploi-backend",
   "version": "1.0.0",
-  "description": "Backend API pour la plateforme d'inscription Salon National de l'Emploi Jeune 2025",
+  "description": "Backend API pour la plateforme d'inscription Salon de l'Emploi 2025",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -11,7 +11,13 @@
     "init-dirs": "node scripts/initDirs.js",
     "create-admin": "node scripts/createAdmin.js"
   },
-  "keywords": ["salon", "emploi", "acpe", "congo", "api"],
+  "keywords": [
+    "salon",
+    "emploi",
+    "acpe",
+    "congo",
+    "api"
+  ],
   "author": "ACPE - Agence Congolaise Pour l'Emploi",
   "license": "MIT",
   "dependencies": {
