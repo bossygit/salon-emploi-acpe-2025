@@ -1589,7 +1589,7 @@ const RegistrationPlatform = () => {
                         <p className="font-semibold mb-1">Rejoignez notre communauté</p>
                         <p className="mb-3">Restez connecté avec les autres participants et recevez les dernières informations sur le salon.</p>
                         <a
-                          href="https://wa.me/242XXXXXXXXX?text=Salut!%20Je%20viens%20de%20m'inscrire%20au%20Salon%20de%20l'Emploi%202025"
+                          href="https://wa.me/242052040000?text=Salut!%20Je%20viens%20de%20m'inscrire%20au%20Salon%20de%20l'Emploi%202025"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center space-x-2 bg-success text-white px-4 py-2 rounded-lg font-medium hover:bg-success/90 transition-colors"
