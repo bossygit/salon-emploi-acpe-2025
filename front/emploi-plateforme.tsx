@@ -534,7 +534,7 @@ const RegistrationPlatform = () => {
                       <span className="text-2xl font-black text-white">500+</span>
                     </div>
                     <h4 className="text-2xl font-black text-gray-900 mb-4">Succès</h4>
-                    <p className="text-gray-600 text-base leading-relaxed mb-6">Jeunes embauchés l&apos;an dernier</p>
+                    <p className="text-gray-600 text-base leading-relaxed mb-6">Jeunes placés l&apos;an dernier</p>
                     <div className="w-full bg-gray-200 rounded-full h-4">
                       <div className="bg-success h-4 rounded-full transition-all duration-2000" style={{ width: '85%' }}></div>
                     </div>
