@@ -293,7 +293,7 @@ const RegistrationPlatform = () => {
                     <Calendar className="w-6 h-6" />
                   </div>
                   <div>
-                    <span className="font-bold text-lg">28-30 Octobre 2025</span>
+                    <span className="font-bold text-lg">13-15 Novembre 2025</span>
                     <p className="text-sm text-white/80">Palais des Congrès, Brazzaville</p>
                   </div>
                 </div>
