@@ -128,7 +128,7 @@ const registrationSchema = new mongoose.Schema({
   // Préférences salon
   joursParticipation: [{
     type: String,
-    enum: ['2025-10-28', '2025-10-29', '2025-10-30']
+    enum: ['2025-11-13', '2025-11-14', '2025-11-15']
   }],
   horairePrefere: {
     type: String,
