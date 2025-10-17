@@ -313,9 +313,8 @@ const RegistrationPlatform = () => {
               </div>
 
               <h2 className="text-5xl md:text-7xl font-bold mb-8 text-white text-shadow animate-fadeInUp">
-                <span className="block">Salon National</span>
-                <span className="block text-secondary font-extrabold">de l&apos;Emploi</span>
-                <span className="block text-4xl md:text-5xl mt-4">Jeune 2025</span>
+                <span className="block">Salon de l&apos;Emploi</span>
+
               </h2>
 
               <p className="text-xl md:text-2xl mb-12 text-white/90 max-w-4xl mx-auto leading-relaxed animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
