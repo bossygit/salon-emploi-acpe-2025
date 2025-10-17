@@ -136,7 +136,7 @@ const getConfirmationEmailTemplate = (registration) => {
                 <p><strong>Nom :</strong> ${registration.prenom} ${registration.nom}</p>
                 <p><strong>Email :</strong> ${registration.email}</p>
                 <p><strong>Téléphone :</strong> ${registration.telephone}</p>
-                ${registration.region ? `<p><strong>Région :</strong> ${registration.region}</p>` : ''}
+                ${registration.region ? `<p><strong>Département :</strong> ${registration.region}</p>` : ''}
             </div>
 
             ${registration.joursParticipation && registration.joursParticipation.length > 0 ? `

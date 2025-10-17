@@ -320,7 +320,7 @@ const RegistrationPlatform = () => {
               <p className="text-xl md:text-2xl mb-12 text-white/90 max-w-4xl mx-auto leading-relaxed animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
                 Transformez votre avenir professionnel ! Rencontrez plus de
                 <span className="text-white font-black animate-pulse-custom"> 100 entreprises</span> et accédez à
-                <span className="text-white font-black animate-pulse-custom" style={{ animationDelay: '0.5s' }}> 1000+ opportunités</span> d&apos;emploi et d&apos;auto-emploi.
+                <span className="text-white font-black animate-pulse-custom" style={{ animationDelay: '0.5s' }}> 1000+ opportunités</span> d&apos;emploi.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
@@ -837,7 +837,7 @@ const RegistrationPlatform = () => {
 
                   <div className="group">
                     <label className="block text-sm font-semibold text-gray-700 mb-3">
-                      Région
+                      Département
                     </label>
                     <div className="relative">
                       <select
@@ -845,7 +845,7 @@ const RegistrationPlatform = () => {
                         onChange={(e) => handleInputChange('region', e.target.value)}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-gray-800 transition-all duration-300 group-hover:border-gray-300 appearance-none"
                       >
-                        <option value="">Sélectionner une région</option>
+                        <option value="">Sélectionner une département</option>
                         {regions.map(region => (
                           <option key={region} value={region}>{region}</option>
                         ))}
@@ -1525,7 +1525,7 @@ const RegistrationPlatform = () => {
                         </div>
                         {formData.region && (
                           <div className="flex justify-between py-3 border-b border-gray-200">
-                            <span className="text-sm font-medium text-gray-600">Région :</span>
+                            <span className="text-sm font-medium text-gray-600">Département :</span>
                             <span className="text-sm text-gray-700">{formData.region}</span>
                           </div>
                         )}

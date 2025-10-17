@@ -186,7 +186,7 @@ Le projet peut être déployé sur :
 ## 📊 Statistiques
 
 - **100+ entreprises** participantes
-- **1000+ opportunités** d'emploi et d'auto-emploi
+- **1000+ opportunités** d'emploi
 - **3 jours** d'événement
 - **Inscription gratuite** pour tous
 
